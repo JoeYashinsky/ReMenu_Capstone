@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ReMenu.Models;
 
 namespace ReMenu.Data
 {
@@ -27,6 +28,8 @@ namespace ReMenu.Data
                 }
             );
         }
+
+        public DbSet<ReMenu.Models.Foodie> Foodie { get; set; }
     }
 }
 
