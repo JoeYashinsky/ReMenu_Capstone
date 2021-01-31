@@ -13,11 +13,13 @@ namespace ReMenu.Models
         [Key]
         public int FoodieId { get; set; }
 
-        [Display(Name = "First Name")]
+        /*[Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public string LastName { get; set; }*/
+
+        public string Email { get; set; }
 
 
         [ForeignKey("IdentityUser")]
