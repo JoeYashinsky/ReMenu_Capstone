@@ -20,6 +20,26 @@ namespace ReMenu.Models
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
+        [Display(Name = "Food Order")]
+        public string FoodOrder { get; set; }
+
+        [Display(Name = "Category")]
+        public string Category { get; set; }
+
+        [Display(Name = "Price")]
+        public double Price { get; set; }
+
+        [Display(Name = "Rating")]
+        public string Rating { get; set; }
+
+        [Display(Name = "Future Modification")]
+        public string FutureModification { get; set; }
+
+        [Display(Name = "Wish I Would Have...")]
+        public string FutureOrder { get; set; }
+
+        public string PhotoPath { get; set; }
+
 
 
     }
