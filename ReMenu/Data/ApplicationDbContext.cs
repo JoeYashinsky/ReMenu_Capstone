@@ -15,6 +15,8 @@ namespace ReMenu.Data
         {
         }
 
+        public DbSet<Foodie> Foodies { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -29,7 +31,6 @@ namespace ReMenu.Data
             );
         }
 
-        public DbSet<ReMenu.Models.Foodie> Foodie { get; set; }
     }
 }
 
