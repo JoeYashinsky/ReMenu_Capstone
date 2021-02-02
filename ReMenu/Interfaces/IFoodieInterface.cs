@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Interfaces
 {
-    interface IFoodieInterface : IInterfaceBase<Foodie>
+    public interface IFoodieInterface : IInterfaceBase<Foodie>
     {
         void CreateFoodie(Foodie foodie);
         Task<List<Foodie>> GetAllFoodiesAsync();
