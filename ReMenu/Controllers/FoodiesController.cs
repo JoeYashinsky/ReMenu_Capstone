@@ -29,29 +29,89 @@ namespace ReMenu.Controllers
                 return RedirectToAction("Create");
             }
 
-            return View();
+            HomeViewModel homeViewModel = await GetAllMeals();
+
+            return View(homeViewModel);
         }
 
         // GET: FoodiesController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> FoodieDetails(int id)
         {
-            return View();
+            var foodie = await _repo.Foodie.GetFoodieAsync(id);
+            return View(foodie);
         }
 
         // GET: FoodiesController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Foodie());
         }
 
         // POST: FoodiesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Foodie foodie)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                foodie.IdentityUserId = userId;
+                _repo.Foodie.CreateFoodie(foodie);
+                await _repo.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return View(e);
+            }
+        }
+
+        // GET: FoodiesController/CreateMeal
+        public ActionResult CreateMeal()
+        {
+            ViewData["Category"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi" };
+            ViewData["Rating"] = new List<int> { 5, 4, 3, 2, 1 };
+            return View();
+        }
+
+        // POST: FoodiesController/CreateMeal
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateMeal(Meal meal, int foodieId)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
+
+            try
+            {
+                meal.FoodieId = foodie.FoodieId;
+                _repo.Meal.CreateMeal(meal);
+                await _repo.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return View(e);
+            }
+        }
+
+        // GET: FoodiessController/EditMeal/5
+        public async Task<ActionResult> EditMeal(int mealId)
+        {
+            var editedMeal = await _repo.Meal.GetMealAsync(mealId);
+            return View(editedMeal);
+        }
+
+        // POST: FoodiesController/EditMeal/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditMeal(Meal meal)
+        {
+            try
+            {
+                _repo.Meal.EditMeal(meal);
+                await _repo.SaveAsync();
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -99,6 +159,21 @@ namespace ReMenu.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<HomeViewModel> GetAllMeals()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
+            List<Meal> meals = await _repo.Meal.GetMealsAsync(foodie.FoodieId);
+
+            HomeViewModel homeViewModel = new HomeViewModel()
+            {
+                Foodie = foodie,
+                Meals = meals,
+                
+            };
+            return homeViewModel;
         }
     }
 }

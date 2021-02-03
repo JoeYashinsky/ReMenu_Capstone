@@ -13,7 +13,7 @@ namespace ReMenu.Interfaces
         void EditMeal(Meal meal);
         void DeleteMeal(Meal meal);
 
-        Task<List<Meal>> GetMealsAsync();
+        Task<List<Meal>> GetMealsAsync(int id);
 
     }
 }
