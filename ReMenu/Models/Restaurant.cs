@@ -11,6 +11,9 @@ namespace ReMenu.Models
         [Key]
         public int RestaurantId { get; set; }
 
+        [Display(Name = "Restaurant Name")]
+        public string Name { get; set; }
+
         [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 

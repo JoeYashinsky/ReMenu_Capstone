@@ -20,7 +20,7 @@ namespace ReMenu.Models
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
-        [Display(Name = "Food Order")]
+        [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
 
         [Display(Name = "Category")]

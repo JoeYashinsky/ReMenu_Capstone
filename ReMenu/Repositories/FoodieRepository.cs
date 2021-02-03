@@ -11,7 +11,7 @@ namespace ReMenu.Repositories
 {
     public class FoodieRepository : BaseRepository<Foodie>, IFoodieInterface
     {
-        private readonly object repo;
+        private readonly object _repo;
 
         public FoodieRepository(ApplicationDbContext applicationDb) : base(applicationDb)
         {

@@ -11,7 +11,7 @@ namespace ReMenu.Repositories
 {
     public class MealRepository : BaseRepository<Meal>, IMealInterface
     {
-        private readonly object repo;
+        private readonly object _repo;
 
         public MealRepository(ApplicationDbContext applicationDb) : base(applicationDb)
         {

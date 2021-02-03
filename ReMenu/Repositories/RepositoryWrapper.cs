@@ -1,4 +1,5 @@
-﻿using ReMenu.Interfaces;
+﻿using ReMenu.Data;
+using ReMenu.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,14 @@ namespace ReMenu.Repositories
         private ApplicationDbContext _context;
         private IFoodieInterface _foodie;
         private IMealInterface _meal;
-        private IRestaurantInterface restaurant;
+        private IRestaurantInterface _restaurant;
+
+
+        public RepositoryWrapper(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
 
         public IFoodieInterface Foodie
         {
@@ -51,6 +59,11 @@ namespace ReMenu.Repositories
                 }
                 return _restaurant;
             }
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
