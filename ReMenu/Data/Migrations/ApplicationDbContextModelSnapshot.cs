@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReMenu.Data;
 
 namespace ReMenu.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210204161207_AddedMigration")]
-    partial class AddedMigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +48,8 @@ namespace ReMenu.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d9f7db9b-a63f-4bef-800b-bf9712b71bae",
-                            ConcurrencyStamp = "2464d208-1ba6-4220-96d8-1fe87b7dc0ce",
+                            Id = "a50d8ec4-ca45-4453-8adc-7cf4632428b4",
+                            ConcurrencyStamp = "755bbd0e-079c-4804-9873-bd959f66a542",
                             Name = "Foodie",
                             NormalizedName = "FOODIE"
                         });
