@@ -30,9 +30,7 @@ namespace ReMenu.Controllers
                 return RedirectToAction("Create");
             }
 
-            HomeViewModel homeViewModel = await GetAllMeals();
-
-            return View(homeViewModel);
+            return View();
         }
 
         // GET: FoodiesController/Create
@@ -67,6 +65,27 @@ namespace ReMenu.Controllers
             return View(foodie);
         }
 
+        // GET: FoodiesController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: FoodiesController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         // GET: FoodiesController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -87,6 +106,7 @@ namespace ReMenu.Controllers
                 return View();
             }
         }
+
 
 
 
@@ -235,48 +255,12 @@ namespace ReMenu.Controllers
         }
 
 
-
-
-
-
-
-        // GET: FoodiesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: FoodiesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        
-
-
-        public async Task<HomeViewModel> GetAllMeals()
+        /*public async Task<ActionResult> GetMeals()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             List<Meal> meals = await _repo.Meal.GetMealsAsync(foodie.FoodieId);
-
-            HomeViewModel homeViewModel = new HomeViewModel()
-            {
-                Foodie = foodie,
-                Meals = meals,
-                
-            };
-            return homeViewModel;
-        }
+            return View();*/
+        //}
     }
 }

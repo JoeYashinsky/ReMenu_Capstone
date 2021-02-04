@@ -10,8 +10,8 @@ using ReMenu.Data;
 namespace ReMenu.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210203182610_current")]
-    partial class current
+    [Migration("20210204160323_newestMigration")]
+    partial class newestMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace ReMenu.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6852ced8-a44c-4c0e-884c-6954e0cc165c",
-                            ConcurrencyStamp = "4e591e59-5f28-4a8a-a338-1d11eeeec2d3",
+                            Id = "62d900e1-3035-4aa5-a0e3-ad3cc1cb3428",
+                            ConcurrencyStamp = "f9b79b3e-73bf-4d2f-815a-45795da8f2b3",
                             Name = "Foodie",
                             NormalizedName = "FOODIE"
                         });
