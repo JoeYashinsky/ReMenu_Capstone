@@ -1,0 +1,58 @@
+﻿@model ReMenu.Models.Restaurant
+
+<form method="post" asp-action="CreateRestaurant">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Add a Restaurant</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="StreetAddress"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="City"></label>
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="State" class="form-control" />
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="ZipCode" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="form-control">
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="StreetAddress" class="form-control" />
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="City" class="form-control" />
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="State" class="form-control" />
+                    </div>
+                    <div class="form-control">
+                        <input asp-for="ZipCode" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

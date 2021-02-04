@@ -12,25 +12,25 @@ namespace ReMenu.Controllers
 {
     public class FoodiesController : Controller
     {
-        private IInterfaceWrapper _repo;
+        private readonly IInterfaceWrapper _repo;
 
         public FoodiesController(IInterfaceWrapper repo)
         {
             _repo = repo;
         }
-        
+
 
         // GET: FoodiesController
         public async Task<ActionResult> Index()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             if (foodie == null)
             {
                 return RedirectToAction("Create");
             }
 
-            return View();
+            return RedirectToAction("CreateRestaurant");
         }
 
         // GET: FoodiesController/Create
@@ -46,11 +46,11 @@ namespace ReMenu.Controllers
         {
             try
             {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 foodie.IdentityUserId = userId;
                 _repo.Foodie.CreateFoodie(foodie);
                 await _repo.SaveAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateRestaurant");
             }
             catch (Exception e)
             {
@@ -126,7 +126,7 @@ namespace ReMenu.Controllers
             {
                 _repo.Restaurant.Create(restaurant);
                 await _repo.SaveAsync();
-                return RedirectToAction("CreateMeal", "Foodies");
+                return RedirectToAction("CreateMeal");
             }
             catch (Exception e)
             {

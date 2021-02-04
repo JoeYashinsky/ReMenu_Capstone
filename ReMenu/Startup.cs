@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using ReMenu.ActionFilters;
+using ReMenu.Interfaces;
+using ReMenu.Repositories;
 
 namespace ReMenu
 {
@@ -38,6 +40,8 @@ namespace ReMenu
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IInterfaceWrapper, RepositoryWrapper>();
 
             services.AddScoped<ClaimsPrincipal>(s => 
                 s.GetService<IHttpContextAccessor>().HttpContext.User);
