@@ -172,8 +172,8 @@ namespace ReMenu.Controllers
         // GET: FoodiesController/CreateMeal
         public ActionResult CreateMeal()
         {
-            ViewData["Category"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi" };
-            ViewData["Rating"] = new List<int> { 5, 4, 3, 2, 1 };
+            ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi" };
+            ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
             return View();
         }
 
