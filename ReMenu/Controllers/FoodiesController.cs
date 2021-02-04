@@ -18,6 +18,7 @@ namespace ReMenu.Controllers
         {
             _repo = repo;
         }
+        
 
         // GET: FoodiesController
         public async Task<ActionResult> Index()
@@ -32,13 +33,6 @@ namespace ReMenu.Controllers
             HomeViewModel homeViewModel = await GetAllMeals();
 
             return View(homeViewModel);
-        }
-
-        // GET: FoodiesController/Details/5
-        public async Task<ActionResult> FoodieDetails(int id)
-        {
-            var foodie = await _repo.Foodie.GetFoodieAsync(id);
-            return View(foodie);
         }
 
         // GET: FoodiesController/Create
@@ -66,6 +60,67 @@ namespace ReMenu.Controllers
             }
         }
 
+        // GET: FoodiesController/Details/5
+        public async Task<ActionResult> FoodieDetails(int id)
+        {
+            var foodie = await _repo.Foodie.GetFoodieAsync(id);
+            return View(foodie);
+        }
+
+
+
+
+        // GET: FoodiesController/CreateRestaurant
+        public ActionResult CreateRestaurant()
+        {
+            return View();
+        }
+
+        // POST: FoodiesController/CreateRestaurant
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRestaurant(Restaurant restaurant)
+        {
+            try
+            {
+                _repo.Restaurant.Create(restaurant);
+                await _repo.SaveAsync();
+                return RedirectToAction("CreateMeal", "Foodies");
+            }
+            catch (Exception e)
+            {
+                return View(e);
+            }
+        }
+
+        // GET: FoodiesController/EditRestaurant/5
+        public async Task<ActionResult> EditRestaurant(int restaurantId)
+        {
+            var editedRestaurant = await _repo.Restaurant.GetRestaurantAsync(restaurantId);
+            return View(editedRestaurant);
+        }
+
+        // POST: FoodiesController/EditRestaurant/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditRestaurant(Restaurant restaurant)
+        {
+            try
+            {
+                _repo.Restaurant.EditRestaurant(restaurant);
+                await _repo.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
         // GET: FoodiesController/CreateMeal
         public ActionResult CreateMeal()
         {
@@ -77,7 +132,7 @@ namespace ReMenu.Controllers
         // POST: FoodiesController/CreateMeal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateMeal(Meal meal, int foodieId)
+        public async Task<ActionResult> CreateMeal(Meal meal)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
@@ -132,6 +187,31 @@ namespace ReMenu.Controllers
         {
             try
             {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: FoodiesController/DeleteMeal/5
+        public async Task<ActionResult> DeleteMeal(int mealId)
+        {
+            var deletedMeal = _repo.Meal.GetMealAsync(mealId);
+            await _repo.SaveAsync();
+            return View(deletedMeal);
+        }
+
+        // POST: FoodiesController/DeleteMeal/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteMeal(int id, Meal meal)
+        {
+            try
+            {
+                _repo.Meal.DeleteMeal(meal);
+                await _repo.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch
