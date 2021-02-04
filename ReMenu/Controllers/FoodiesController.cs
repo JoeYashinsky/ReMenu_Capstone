@@ -67,6 +67,27 @@ namespace ReMenu.Controllers
             return View(foodie);
         }
 
+        // GET: FoodiesController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: FoodiesController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
 
 
@@ -115,6 +136,13 @@ namespace ReMenu.Controllers
             {
                 return View();
             }
+        }
+
+        // GET: FoodiesController/RestaurantDetails/5
+        public async Task<ActionResult> RestaurantDetails(int restaurantId)
+        {
+            var restaurantDetails = await _repo.Restaurant.GetRestaurantAsync(restaurantId);
+            return View(restaurantDetails);
         }
 
 
@@ -174,25 +202,11 @@ namespace ReMenu.Controllers
             }
         }
 
-        // GET: FoodiesController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: FoodiesController/MealDetails/5
+        public async Task<ActionResult> MealDetails(int mealId)
         {
-            return View();
-        }
-
-        // POST: FoodiesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var mealDetails = await _repo.Meal.GetMealAsync(mealId);
+            return View(mealDetails);
         }
 
         // GET: FoodiesController/DeleteMeal/5
@@ -220,16 +234,22 @@ namespace ReMenu.Controllers
             }
         }
 
-        // GET: FoodiesController/Delete/5
-        public ActionResult Delete(int id)
+
+
+
+
+
+
+        // GET: FoodiesController/Edit/5
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: FoodiesController/Delete/5
+        // POST: FoodiesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -240,6 +260,9 @@ namespace ReMenu.Controllers
                 return View();
             }
         }
+
+        
+
 
         public async Task<HomeViewModel> GetAllMeals()
         {
