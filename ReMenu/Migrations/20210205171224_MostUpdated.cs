@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReMenu.Migrations
 {
-    public partial class JoeRocks : Migration
+    public partial class MostUpdated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -202,7 +202,7 @@ namespace ReMenu.Migrations
                     FoodOrder = table.Column<string>(nullable: true),
                     Category = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
-                    Rating = table.Column<string>(nullable: true),
+                    Rating = table.Column<int>(nullable: false),
                     FutureModification = table.Column<string>(nullable: true),
                     FutureOrder = table.Column<string>(nullable: true),
                     PhotoPath = table.Column<string>(nullable: true)
@@ -227,7 +227,7 @@ namespace ReMenu.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "a50d8ec4-ca45-4453-8adc-7cf4632428b4", "755bbd0e-079c-4804-9873-bd959f66a542", "Foodie", "FOODIE" });
+                values: new object[] { "5fadd69c-fa30-4c0a-9c35-830f4312f962", "e4dd6647-d58e-48a7-ad17-af1d0a06bc11", "Foodie", "FOODIE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

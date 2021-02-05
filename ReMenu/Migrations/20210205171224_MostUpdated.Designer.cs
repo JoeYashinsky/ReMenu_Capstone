@@ -10,8 +10,8 @@ using ReMenu.Data;
 namespace ReMenu.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210204172706_JoeRocks")]
-    partial class JoeRocks
+    [Migration("20210205171224_MostUpdated")]
+    partial class MostUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace ReMenu.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a50d8ec4-ca45-4453-8adc-7cf4632428b4",
-                            ConcurrencyStamp = "755bbd0e-079c-4804-9873-bd959f66a542",
+                            Id = "5fadd69c-fa30-4c0a-9c35-830f4312f962",
+                            ConcurrencyStamp = "e4dd6647-d58e-48a7-ad17-af1d0a06bc11",
                             Name = "Foodie",
                             NormalizedName = "FOODIE"
                         });
@@ -280,8 +280,8 @@ namespace ReMenu.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
