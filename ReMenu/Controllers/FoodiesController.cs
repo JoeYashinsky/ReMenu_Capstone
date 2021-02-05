@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -7,16 +8,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReMenu.Interfaces;
 using ReMenu.Models;
+using ReMenu.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ReMenu.Controllers
 {
     public class FoodiesController : Controller
     {
         private readonly IInterfaceWrapper _repo;
+        [Obsolete]
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public FoodiesController(IInterfaceWrapper repo)
+        [Obsolete]
+        public FoodiesController(IInterfaceWrapper repo, IHostingEnvironment hostingEnvironment)
         {
             _repo = repo;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
 
@@ -180,22 +187,42 @@ namespace ReMenu.Controllers
         // POST: FoodiesController/CreateMeal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateMeal(Meal meal)
+        [Obsolete]
+        public async Task<ActionResult> CreateMeal(MealCreateViewModel model)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
 
-            try
+            Meal newMeal = new Meal
             {
-                meal.FoodieId = foodie.FoodieId;
-                _repo.Meal.CreateMeal(meal);
-                await _repo.SaveAsync();
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-                return View(e);
-            }
+                FoodOrder = model.FoodOrder,
+                Category = model.Category,
+                Price = model.Price,
+                Rating = model.Rating,
+                FutureModification = model.FutureModification,
+                FutureOrder = model.FutureOrder,
+                PhotoPath = uniqueFileName
+            };
+
+            newMeal.FoodieId = foodie.FoodieId;
+            _repo.Meal.CreateMeal(newMeal);
+            await _repo.SaveAsync();
+            return RedirectToAction("details", new { id = newMeal.FoodieId });
+        }
+
+        // GET: FoodiesController/MealDetails/5
+        public async Task<ActionResult> MealDetails(int mealId)
+        {
+            var mealDetails = await _repo.Meal.GetMealAsync(mealId);
+            return View(mealDetails);
         }
 
         // GET: FoodiessController/EditMeal/5
@@ -220,13 +247,6 @@ namespace ReMenu.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: FoodiesController/MealDetails/5
-        public async Task<ActionResult> MealDetails(int mealId)
-        {
-            var mealDetails = await _repo.Meal.GetMealAsync(mealId);
-            return View(mealDetails);
         }
 
         // GET: FoodiesController/DeleteMeal/5
