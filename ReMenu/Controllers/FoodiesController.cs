@@ -190,7 +190,7 @@ namespace ReMenu.Controllers
         [Obsolete]
         public async Task<ActionResult> CreateMeal(MealCreateViewModel model)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             string uniqueFileName = null;
             if (model.Photo != null)

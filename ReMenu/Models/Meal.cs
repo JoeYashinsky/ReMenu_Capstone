@@ -30,7 +30,7 @@ namespace ReMenu.Models
         public double Price { get; set; }
 
         [Display(Name = "Rating")]
-        public string Rating { get; set; }
+        public int Rating { get; set; }
 
         [Display(Name = "Future Modification")]
         public string FutureModification { get; set; }

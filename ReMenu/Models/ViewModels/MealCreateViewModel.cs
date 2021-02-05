@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace ReMenu.Models.ViewModels
 {
     public class MealCreateViewModel
     {
+
         [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
 
@@ -19,7 +21,7 @@ namespace ReMenu.Models.ViewModels
         public double Price { get; set; }
 
         [Display(Name = "Rating")]
-        public string Rating { get; set; }
+        public int Rating { get; set; }
 
         [Display(Name = "Future Modification")]
         public string FutureModification { get; set; }
