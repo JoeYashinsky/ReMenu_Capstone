@@ -31,13 +31,14 @@ namespace ReMenu.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
+            var foodie = await _repo.Foodie.GetFoodieAsync(userId);
             if (foodie == null)
             {
                 return RedirectToAction("Create");
             }
+            //var myMeals = _repo.Meal.GetMealsAsync();
 
-            return RedirectToAction("CreateRestaurant");
+            return View(foodie);
         }
 
         // GET: FoodiesController/Create
