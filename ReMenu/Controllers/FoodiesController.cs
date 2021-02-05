@@ -133,7 +133,7 @@ namespace ReMenu.Controllers
             {
                 _repo.Restaurant.Create(restaurant);
                 await _repo.SaveAsync();
-                return RedirectToAction("CreateMeal");
+                return RedirectToAction("CreateMeal", new {id = restaurant.RestaurantId });
             }
             catch (Exception e)
             {
@@ -177,11 +177,16 @@ namespace ReMenu.Controllers
 
 
         // GET: FoodiesController/CreateMeal
-        public ActionResult CreateMeal()
+        public ActionResult CreateMeal(int id)
         {
             ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi" };
             ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
-            return View();
+            MealCreateViewModel ting = new MealCreateViewModel()
+            {
+                ResturantId = id
+            };
+
+            return View(ting);
         }
 
         // POST: FoodiesController/CreateMeal
@@ -209,13 +214,14 @@ namespace ReMenu.Controllers
                 Rating = model.Rating,
                 FutureModification = model.FutureModification,
                 FutureOrder = model.FutureOrder,
-                PhotoPath = uniqueFileName
+                PhotoPath = uniqueFileName,
+                RestaurantId = model.ResturantId
             };
 
             newMeal.FoodieId = foodie.FoodieId;
             _repo.Meal.CreateMeal(newMeal);
             await _repo.SaveAsync();
-            return RedirectToAction("details", new { id = newMeal.FoodieId });
+            return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
         }
 
         // GET: FoodiesController/MealDetails/5

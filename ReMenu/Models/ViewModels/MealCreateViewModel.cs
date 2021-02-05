@@ -13,6 +13,7 @@ namespace ReMenu.Models.ViewModels
 
         [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
+        public int ResturantId { get; set; }
 
         [Display(Name = "Category")]
         public string Category { get; set; }

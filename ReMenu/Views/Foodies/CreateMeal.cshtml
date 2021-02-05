@@ -15,6 +15,11 @@
         <form asp-action="CreateMeal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+              
+                <input asp-for="ResturantId" hidden class="form-control" />
+             
+            </div>
+            <div class="form-group">
                 <label asp-for="FoodOrder" class="control-label"></label>
                 <input asp-for="FoodOrder" class="form-control" />
                 <span asp-validation-for="FoodOrder" class="text-danger"></span>
