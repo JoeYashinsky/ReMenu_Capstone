@@ -30,15 +30,16 @@ namespace ReMenu.Controllers
         // GET: FoodiesController
         public async Task<ActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var foodie = await _repo.Foodie.GetFoodieAsync(userId);
+            var meals = _repo.Meal.GetMealsAsync(foodie.FoodieId);
             if (foodie == null)
             {
                 return RedirectToAction("Create");
             }
             //var myMeals = _repo.Meal.GetMealsAsync();
 
-            return View(foodie);
+            return View(meals);
         }
 
         // GET: FoodiesController/Create
@@ -282,12 +283,12 @@ namespace ReMenu.Controllers
         }
 
 
-        /*public async Task<ActionResult> GetMeals()
+        public async Task<ActionResult> GetMeals()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             List<Meal> meals = await _repo.Meal.GetMealsAsync(foodie.FoodieId);
-            return View();*/
-        //}
+            return View(meals);
+        }
     }
 }

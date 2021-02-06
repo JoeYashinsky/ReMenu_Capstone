@@ -10,10 +10,11 @@ namespace ReMenu.Interfaces
     {
         void CreateMeal(Meal meal);
         Task<Meal> GetMealAsync(int mealId);
+        Task<Meal> GetMealAsync(string mealId);
         void EditMeal(Meal meal);
         void DeleteMeal(Meal meal);
 
-        Task<List<Meal>> GetMealsAsync();
+        Task<List<Meal>> GetMealsAsync(int mealId);
 
     }
 }
