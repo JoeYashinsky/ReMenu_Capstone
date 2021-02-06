@@ -285,6 +285,17 @@ namespace ReMenu.Controllers
             }
         }
 
+        /*private List<Meal> GetMeals()
+        {
+            var meals = _repo.Meal.FindAll();
+            List<Meal> allMeals = new List<Meal>();
+            foreach(Meal m in meals)
+            {
+                allMeals.Add(m);
+            }
+
+            return allMeals;
+        }*/
 
         public async Task<ActionResult> GetMeals()
         {

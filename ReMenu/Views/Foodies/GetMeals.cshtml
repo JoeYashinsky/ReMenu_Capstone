@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ReMenu.Models.Meal>
+
+@{
+    ViewData["Title"] = "GetMeals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>GetMeals</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Foodie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FutureModification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FutureOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Foodie.FoodieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FutureModification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FutureOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhotoPath)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MealId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MealId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MealId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
