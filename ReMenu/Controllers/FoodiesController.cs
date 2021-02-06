@@ -53,18 +53,18 @@ namespace ReMenu.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Foodie foodie)
         {
-            try
-            {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                foodie.IdentityUserId = userId;
+                foodie.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _repo.Foodie.CreateFoodie(foodie);
                 await _repo.SaveAsync();
-                return RedirectToAction("CreateRestaurant");
-            }
-            catch (Exception e)
-            {
-                return View(e);
-            }
+                try
+                {
+                    return RedirectToAction(nameof(CreateRestaurant));
+                }
+            
+                catch
+                {
+                    return View("Create");
+                }
         }
 
         // GET: FoodiesController/Details/5
@@ -123,6 +123,9 @@ namespace ReMenu.Controllers
         // GET: FoodiesController/CreateRestaurant
         public ActionResult CreateRestaurant()
         {
+            ViewData["allStates"] = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS",
+                "KY", "LA", "ME", "MD", "MA", "MI","MN", "MS", "MO","MT", "NE", "NV","NH", "NJ", "NM","NY", "NC", "ND","OH", "OK", "OR","PA", "RI", "SC","SD",
+                "TN", "TX","UT", "VT", "VA","WA", "WV", "WI","WY" };
             return View();
         }
 
