@@ -208,7 +208,7 @@ namespace ReMenu.Controllers
             ViewData["FoodieId"] = new SelectList(_context.Foodies, "FoodieId", "FoodieId");
             ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId");
 
-            return View();
+            return View(new Meal());
         }
 
         // POST: FoodiesController/CreateMeal
@@ -224,8 +224,11 @@ namespace ReMenu.Controllers
             {
                 {
                     Meal newMeal = new Meal();
-                    newMeal.FoodieId = meal.FoodieId;
-                    newMeal.RestaurantId = meal.RestaurantId;
+                    newMeal.FoodieId = foodie.FoodieId;
+                    var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
+                    newMeal.RestaurantId = thisRestaurant.RestaurantId;
+                 
+                    newMeal.Restaurant = thisRestaurant;
                     newMeal.FoodOrder = meal.FoodOrder;
                     newMeal.Category = meal.Category;
                     newMeal.Price = meal.Price;
