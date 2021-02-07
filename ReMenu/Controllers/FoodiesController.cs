@@ -34,11 +34,11 @@ namespace ReMenu.Controllers
         }
 
         // GET: FoodiesController
-        public async Task<ActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var foodie = await _repo.Foodie.GetFoodieAsync(userId);
-            var foodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
+            var foodie = _context.Foodies.Where(f => f.IdentityUserId == userId).SingleOrDefault();
             //var meals = _repo.Meal.GetMealsAsync(foodie.FoodieId);
             if (foodie == null)
             {
@@ -46,36 +46,35 @@ namespace ReMenu.Controllers
             }
             //var myMeals = _repo.Meal.GetMealsAsync();
 
-            return View(foodie);
+            return View("GetMeals");
         }
 
         // GET: FoodiesController/Create
         public ActionResult Create()
         {
-            return View(new Foodie());
+            return View();
         }
 
         // POST: FoodiesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Foodie foodie)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] Foodie foodie)
         {
-            foodie.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Foodie newFoodie = new Foodie();
-            _context.Add(newFoodie);
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Foodie newFoodie = new Foodie();
+                newFoodie.IdentityUserId = userId;
+                newFoodie.FirstName = foodie.FirstName;
+                newFoodie.LastName = foodie.LastName;
+                _context.Add(newFoodie);
+                await _context.SaveChangesAsync();
 
                 //_repo.Foodie.CreateFoodie(foodie);
                 //await _repo.SaveAsync();
-                try
-                {
-                    return RedirectToAction(nameof(CreateRestaurant));
-                }
-            
-                catch
-                {
-                    return View("Create");
-                }
+                return RedirectToAction(nameof(CreateRestaurant));
+            }
+            return View(foodie);
         }
 
         // GET: FoodiesController/Details/5

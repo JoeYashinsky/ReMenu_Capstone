@@ -19,8 +19,6 @@ namespace ReMenu.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        public string Email { get; set; }
-
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
