@@ -142,13 +142,19 @@ namespace ReMenu.Controllers
         // POST: FoodiesController/CreateRestaurant
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRestaurant(Restaurant restaurant)
+        public async Task<ActionResult> CreateRestaurant([Bind("RestaurantId, Name, StreetAddress, City, State, ZipCode")] Restaurant restaurant)
         {
             try
             {
                 Restaurant newRestaurant = new Restaurant();
+                newRestaurant.Name = restaurant.Name;
+                newRestaurant.StreetAddress = restaurant.StreetAddress;
+                newRestaurant.City = restaurant.City;
+                newRestaurant.State = restaurant.State;
+                newRestaurant.ZipCode = restaurant.ZipCode;
                 _context.Add(newRestaurant);
                 await _context.SaveChangesAsync();
+
                 //_repo.Restaurant.Create(restaurant);
                 //await _repo.SaveAsync();
                 return RedirectToAction("CreateMeal", new {id = restaurant.RestaurantId });
