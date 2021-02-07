@@ -238,6 +238,7 @@ namespace ReMenu.Controllers
                 _context.Add(newMeal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
+                //return RedirectToAction("MealDetails", new { id = newMeal.MealId });
             }
 
             catch (Exception e)
@@ -248,10 +249,10 @@ namespace ReMenu.Controllers
         }
 
         // GET: FoodiesController/MealDetails/5
-        public async Task<ActionResult> MealDetails(int mealId)
+        public ActionResult MealDetails(int mealId)
         {
-            var mealDetails = await _repo.Meal.GetMealAsync(mealId);
-            return View(mealDetails);
+            //var meal = await _repo.Meal.GetMealAsync(mealId);
+            return View();
         }
 
 
