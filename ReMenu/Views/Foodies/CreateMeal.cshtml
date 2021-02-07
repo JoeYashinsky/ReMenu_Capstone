@@ -3,21 +3,25 @@
 @{
     ViewData["Title"] = "CreateMeal";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<string> Categories = (List<string>)ViewData["Categories"];
-    List<int> Ratings = (List<int>)ViewData["Ratings"];
 }
 
-<h2 class="text-black-50 pl-3">Record the Specifics of Your Meal!</h2>
+<h1>CreateMeal</h1>
 
+<h4>MealCreateViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateMeal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-              
-                <input asp-for="ResturantId" hidden class="form-control" />
-             
+                <label asp-for="FoodieId" class="control-label"></label>
+                <input asp-for="FoodieId" hidden class="form-control" />
+                <span asp-validation-for="FoodieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestaurantId" class="control-label"></label>
+                <input asp-for="RestaurantId" hidden class="form-control" />
+                <span asp-validation-for="RestaurantId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FoodOrder" class="control-label"></label>
@@ -25,8 +29,13 @@
                 <span asp-validation-for="FoodOrder" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ResturantId" class="control-label"></label>
+                <input asp-for="ResturantId" class="form-control" />
+                <span asp-validation-for="ResturantId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <select asp-for="Category" class="form-control" asp-items="new SelectList(Categories)"> </select>
+                <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rating" class="control-label"></label>
-                <select asp-for="Rating" class="form-control" asp-items="new SelectList(Ratings)"> </select>
+                <input asp-for="Rating" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,15 +57,6 @@
                 <label asp-for="FutureOrder" class="control-label"></label>
                 <input asp-for="FutureOrder" class="form-control" />
                 <span asp-validation-for="FutureOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Photo" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
-                    <div class="custom-file">
-                        <input asp-for="Photo" class="form-control custom-file-input">
-                        <label class="custom-file-label">Choose File</label>
-                    </div>
-                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -71,12 +71,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-            $(document).ready(function () {
-                $('.custom-file-input').on("change", function () {
-                    var fileName = $(this).val().split("\\").pop();
-                    $(this).next('.custom-file-label').html(fileName);
-                });
-            });
-    </script>
 }
