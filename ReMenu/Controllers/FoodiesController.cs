@@ -46,7 +46,7 @@ namespace ReMenu.Controllers
             }
             //var myMeals = _repo.Meal.GetMealsAsync();
 
-            return View("GetMeals");
+            return View("Index");
         }
 
         // GET: FoodiesController/Create
@@ -201,23 +201,24 @@ namespace ReMenu.Controllers
 
 
         // GET: FoodiesController/CreateMeal
-        public ActionResult CreateMeal(int id)
+        public ActionResult CreateMeal(int foodieId, int restaurantId)
         {
-            ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi" };
+            ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
             ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
-            MealCreateViewModel ting = new MealCreateViewModel()
+            MealCreateViewModel viewModel = new MealCreateViewModel()
             {
-                ResturantId = id
+                FoodieId = foodieId,
+                RestaurantId = restaurantId
             };
 
-            return View(ting);
+            return View(viewModel);
         }
 
         // POST: FoodiesController/CreateMeal
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Obsolete]
-        public async Task<ActionResult> CreateMeal(MealCreateViewModel model)
+        public async Task<ActionResult> CreateMeal([Bind("MealId, FoodieId, RestaurantId, FoodOrder, Category, Price, Rating, FutureModification, FutureOrder, Photo")] MealCreateViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
@@ -232,24 +233,28 @@ namespace ReMenu.Controllers
                 model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
             }
 
-            Meal newMeal = new Meal
+            try
             {
-                FoodOrder = model.FoodOrder,
-                Category = model.Category,
-                Price = model.Price,
-                Rating = model.Rating,
-                FutureModification = model.FutureModification,
-                FutureOrder = model.FutureOrder,
-                PhotoPath = uniqueFileName,
-                RestaurantId = model.ResturantId
-            };
+                Meal newMeal = new Meal();
+                newMeal.FoodieId = model.FoodieId;
+                newMeal.RestaurantId = model.RestaurantId;
+                newMeal.FoodOrder = model.FoodOrder;
+                newMeal.Category = model.Category;
+                newMeal.Price = model.Price;
+                newMeal.Rating = model.Rating;
+                newMeal.FutureModification = model.FutureModification;
+                newMeal.FutureOrder = model.FutureOrder;
+                newMeal.PhotoPath = uniqueFileName;
+                _context.Add(newMeal);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
+            }
 
-            Meal meal = new Meal();
-            _context.Add(meal);
-            await _context.SaveChangesAsync();
-            newMeal.FoodieId = foodie.FoodieId;
+            catch (Exception e)
+            {
+                return View(e);
+            }
             
-            return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
         }
 
         // GET: FoodiesController/MealDetails/5

@@ -10,6 +10,15 @@ namespace ReMenu.Models.ViewModels
 {
     public class MealCreateViewModel
     {
+        
+        [ForeignKey("Foodie")]
+        public int FoodieId { get; set; }
+        public Foodie Foodie { get; set; }
+
+        [ForeignKey("Restaurant")]
+        public int RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
+
 
         [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
