@@ -9,8 +9,8 @@ namespace ReMenu.Interfaces
     public interface IRestaurantInterface : IInterfaceBase<Restaurant>
     {
         void CreateRestaurant(Restaurant restaurant);
-        Task<List<Restaurant>> GetRestaurantsAsync();
-        Task<Restaurant> GetRestaurantAsync(int restaurantId);
+        List<Restaurant> GetRestaurants();
+        Restaurant GetRestaurant(int restaurantId);
         void EditRestaurant(Restaurant restaurant);
         void DeleteRestaurant(Restaurant restaurant);
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReMenu.Migrations
 {
-    public partial class init : Migration
+    public partial class initials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -226,7 +226,7 @@ namespace ReMenu.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "14f215ea-8b00-4a4c-a645-2a568044ca9f", "d9419c97-4bd4-47b2-8055-284f5e07fce0", "Foodie", "FOODIE" });
+                values: new object[] { "331f6a9c-f312-497e-9874-e9c5ee796caa", "801cd68f-92d8-43de-a9cd-94b1f23917a9", "Foodie", "FOODIE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

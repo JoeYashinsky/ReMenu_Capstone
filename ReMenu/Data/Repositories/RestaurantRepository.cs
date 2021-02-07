@@ -21,7 +21,7 @@ namespace ReMenu.Repositories
         public void CreateRestaurant(Restaurant restaurant) => Create(restaurant);
         public void EditRestaurant(Restaurant restaurant) => Update(restaurant);
         public void DeleteRestaurant(Restaurant restaurant) => Delete(restaurant);
-        public async Task<List<Restaurant>> GetRestaurantsAsync() => await FindAll().ToListAsync();
-        public async Task<Restaurant> GetRestaurantAsync(int restaurantId) => await FindByCondition(r => r.RestaurantId.Equals(restaurantId)).FirstOrDefaultAsync();
+        public List<Restaurant> GetRestaurants() => FindAll().ToList();
+        public Restaurant GetRestaurant(int restaurantId) => FindByCondition(r => r.RestaurantId.Equals(restaurantId)).FirstOrDefault();
     }
 }

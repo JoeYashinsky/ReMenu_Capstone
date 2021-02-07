@@ -9,12 +9,12 @@ namespace ReMenu.Interfaces
     public interface IMealInterface : IInterfaceBase<Meal>
     {
         void CreateMeal(Meal meal);
-        Task<Meal> GetMealAsync(int mealId);
-        Task<Meal> GetMealAsync(string mealId);
+        Meal GetMeal(int mealId);
+        Meal GetMeal(string mealId);
         void EditMeal(Meal meal);
         void DeleteMeal(Meal meal);
 
-        Task<List<Meal>> GetMealsAsync(int mealId);
+        List<Meal> GetMeals(int mealId);
 
     }
 }

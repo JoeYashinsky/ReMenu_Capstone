@@ -21,8 +21,8 @@ namespace ReMenu.Repositories
         public void CreateMeal(Meal meal) => Create(meal);
         public void EditMeal(Meal meal) => Update(meal);
         public void DeleteMeal(Meal meal) => Delete(meal);
-        public async Task<List<Meal>> GetMealsAsync(int foodieId) => await FindAll().ToListAsync();
-        public async Task<Meal> GetMealAsync(int mealId) => await FindByCondition(m => m.MealId.Equals(mealId)).FirstOrDefaultAsync();
-        public async Task<Meal> GetMealAsync(string mealId) => await FindByCondition(m => m.MealId.Equals(mealId)).FirstOrDefaultAsync();
+        public List<Meal> GetMeals(int foodieId) => FindAll().ToList();
+        public Meal GetMeal(int mealId) => FindByCondition(m => m.MealId.Equals(mealId)).FirstOrDefault();
+        public Meal GetMeal(string mealId) => FindByCondition(m => m.MealId.Equals(mealId)).FirstOrDefault();
     }
 }

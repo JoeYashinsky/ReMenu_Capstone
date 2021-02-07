@@ -11,6 +11,7 @@ using ReMenu.Models;
 using Microsoft.AspNetCore.Hosting;
 using ReMenu.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ReMenu.ViewModels;
 
 namespace ReMenu.Controllers
 {
@@ -26,11 +27,11 @@ namespace ReMenu.Controllers
             _repo = repo;
             this.hostingEnvironment = hostingEnvironment;
         }*/
-
-        private readonly ApplicationDbContext _context;
-        public FoodiesController(ApplicationDbContext context)
+        
+        //private readonly ApplicationDbContext _context;
+        public FoodiesController(IInterfaceWrapper repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         // GET: FoodiesController
@@ -38,7 +39,8 @@ namespace ReMenu.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var foodie = await _repo.Foodie.GetFoodieAsync(userId);
-            var foodie = _context.Foodies.Where(f => f.IdentityUserId == userId).SingleOrDefault();
+            //var foodie = _context.Foodies.Where(f => f.IdentityUserId == userId).SingleOrDefault();
+            var foodie = _repo.Foodie.GetFoodieAsync(userId);
             //var meals = _repo.Meal.GetMealsAsync(foodie.FoodieId);
             if (foodie == null)
             {
@@ -67,11 +69,12 @@ namespace ReMenu.Controllers
                 newFoodie.IdentityUserId = userId;
                 newFoodie.FirstName = foodie.FirstName;
                 newFoodie.LastName = foodie.LastName;
-                _context.Add(newFoodie);
-                await _context.SaveChangesAsync();
 
-                //_repo.Foodie.CreateFoodie(foodie);
-                //await _repo.SaveAsync();
+                //_context.Add(newFoodie);
+                //await _context.SaveChangesAsync();
+
+                _repo.Foodie.CreateFoodie(foodie);
+                await _repo.Save();
                 return RedirectToAction(nameof(CreateRestaurant));
             }
             return View(foodie);
@@ -152,12 +155,13 @@ namespace ReMenu.Controllers
                 newRestaurant.City = restaurant.City;
                 newRestaurant.State = restaurant.State;
                 newRestaurant.ZipCode = restaurant.ZipCode;
+                //newRestaurant.RestaurantId = restaurant.RestaurantId;
                 _context.Add(newRestaurant);
                 await _context.SaveChangesAsync();
 
                 //_repo.Restaurant.Create(restaurant);
                 //await _repo.SaveAsync();
-                return RedirectToAction("CreateMeal", new {id = restaurant.RestaurantId });
+                return RedirectToAction("CreateFood", new {id = newRestaurant.RestaurantId });
             }
             catch (Exception e)
             {
@@ -200,7 +204,7 @@ namespace ReMenu.Controllers
 
 
 
-        // GET: FoodiesController/CreateMeal
+        /*// GET: FoodiesController/CreateMeal
         public ActionResult CreateMeal()
         {
             ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
@@ -208,25 +212,71 @@ namespace ReMenu.Controllers
             ViewData["FoodieId"] = new SelectList(_context.Foodies, "FoodieId", "FoodieId");
             ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId");
 
-            return View(new Meal());
+            return View();
+        }*/
+
+        public ActionResult CreateFood()
+        {
+            ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
+            ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
+            return View(new MealRestaurantViewModel());
         }
 
-        // POST: FoodiesController/CreateMeal
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFood(MealRestaurantViewModel mealModel)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie thisFoodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
+
+            Meal meal = new Meal();
+            Restaurant mealRestaurant = new Restaurant();
+
+            _repo.Meal.Create(meal);
+            meal.Foodie = thisFoodie;
+            meal.FoodieId = thisFoodie.FoodieId;
+            meal.FoodOrder = mealModel.FoodOrder;
+            meal.Category = mealModel.Category;
+            meal.Price = mealModel.Price;
+            meal.Rating = mealModel.Rating;
+            meal.FutureModification = mealModel.FutureModification;
+            meal.FutureOrder = mealModel.FutureOrder;
+            meal.PhotoPath = null;
+            //_context.Meals.
+
+            //newMeal.PhotoPath = uniqueFileName;
+
+            meal.Restaurant = meal.Restaurant;
+            meal.Restaurant.Name = mealModel.Name;
+            meal.Restaurant.StreetAddress = mealModel.StreetAddress;
+            meal.Restaurant.City = mealModel.City;
+            meal.Restaurant.State = mealModel.State;
+            meal.Restaurant.ZipCode = mealModel.ZipCode;
+
+            _context.SaveChangesAsync();
+
+            return RedirectToAction("MealDetails");
+        }
+
+        /*// POST: FoodiesController/CreateMeal
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateMeal([Bind("MealId, FoodieId, RestaurantId, FoodOrder, Category, Price, Rating, FutureModification, FutureOrder, Photo")] Meal meal)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Meal newMeal = new Meal();
             //Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             var foodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
+            var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
+
 
             try
             {
                 {
-                    Meal newMeal = new Meal();
+                    //Meal newMeal = new Meal();
                     newMeal.FoodieId = foodie.FoodieId;
-                    var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
-                    newMeal.RestaurantId = thisRestaurant.RestaurantId;
+                    //var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
+                    newMeal.Restaurant.RestaurantId = thisRestaurant.RestaurantId;
                  
                     newMeal.Restaurant = thisRestaurant;
                     newMeal.FoodOrder = meal.FoodOrder;
@@ -248,7 +298,7 @@ namespace ReMenu.Controllers
             {
                 return View(e);
             } 
-        }
+        }*/
 
         // GET: FoodiesController/MealDetails/5
         public ActionResult MealDetails(int mealId)

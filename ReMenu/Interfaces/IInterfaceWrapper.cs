@@ -13,6 +13,6 @@ namespace ReMenu.Interfaces
 
         IRestaurantInterface Restaurant { get; }
 
-        Task SaveAsync();
+        void Save();
     }
 }

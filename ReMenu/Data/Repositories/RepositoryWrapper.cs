@@ -61,9 +61,9 @@ namespace ReMenu.Repositories
             }
         }
 
-        public async Task SaveAsync()
+        public void Save()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

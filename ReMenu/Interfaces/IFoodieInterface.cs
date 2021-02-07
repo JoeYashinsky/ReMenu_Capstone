@@ -9,9 +9,9 @@ namespace ReMenu.Interfaces
     public interface IFoodieInterface : IInterfaceBase<Foodie>
     {
         void CreateFoodie(Foodie foodie);
-        Task<List<Foodie>> GetAllFoodiesAsync();
-        Task<Foodie> GetFoodieAsync(int foodieId);
-        Task<Foodie> GetFoodieAsync(string userId);
+        List<Foodie> GetAllFoodies();
+        Foodie GetFoodie(int foodieId);
+        Foodie GetFoodie(string userId);
 
         void EditFoodie(Foodie foodie);
         void DeleteFoodie(Foodie foodie);

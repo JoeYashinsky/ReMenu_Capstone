@@ -18,9 +18,9 @@ namespace ReMenu.Repositories
         }
 
         public void CreateFoodie(Foodie foodie) => Create(foodie);
-        public async Task<List<Foodie>> GetAllFoodiesAsync() => await FindAll().ToListAsync();
-        public async Task<Foodie> GetFoodieAsync(string userId) => await FindByCondition(f => f.IdentityUserId.Equals(userId)).FirstOrDefaultAsync();
-        public async Task<Foodie> GetFoodieAsync(int foodieId) => await FindByCondition(f => f.FoodieId.Equals(foodieId)).FirstOrDefaultAsync();
+        public List<Foodie> GetAllFoodies() => FindAll().ToList();
+        public Foodie GetFoodie(string userId) => FindByCondition(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
+        public Foodie GetFoodie(int foodieId) => FindByCondition(f => f.FoodieId.Equals(foodieId)).FirstOrDefault();
         public void EditFoodie(Foodie foodie) => Update(foodie);
         public void DeleteFoodie(Foodie foodie) => Delete(foodie);
 
