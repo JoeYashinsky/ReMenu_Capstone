@@ -218,34 +218,33 @@ namespace ReMenu.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
-            
             var foodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
 
             try
             {
-                Meal newMeal = new Meal
                 {
-                    FoodieId = meal.FoodieId,
-                    RestaurantId = meal.RestaurantId,
-                    FoodOrder = meal.FoodOrder,
-                    Category = meal.Category,
-                    Price = meal.Price,
-                    Rating = meal.Rating,
-                    FutureModification = meal.FutureModification,
-                    FutureOrder = meal.FutureOrder,
-                    PhotoPath = meal.PhotoPath
+                    Meal newMeal = new Meal();
+                    newMeal.FoodieId = meal.FoodieId;
+                    newMeal.RestaurantId = meal.RestaurantId;
+                    newMeal.FoodOrder = meal.FoodOrder;
+                    newMeal.Category = meal.Category;
+                    newMeal.Price = meal.Price;
+                    newMeal.Rating = meal.Rating;
+                    newMeal.FutureModification = meal.FutureModification;
+                    newMeal.FutureOrder = meal.FutureOrder;
+                    newMeal.PhotoPath = meal.PhotoPath;
+                    _context.Add(newMeal);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("MealDetails", new { id = meal.MealId });
                 };
-                _context.Add(newMeal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
+                //return View(meal);
+                //return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
                 //return RedirectToAction("MealDetails", new { id = newMeal.MealId });
             }
-
             catch (Exception e)
             {
                 return View(e);
-            }
-            
+            } 
         }
 
         // GET: FoodiesController/MealDetails/5
