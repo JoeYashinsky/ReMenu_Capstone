@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReMenu.Interfaces;
 using ReMenu.Models;
-using ReMenu.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using ReMenu.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ReMenu.Controllers
 {
@@ -201,50 +201,40 @@ namespace ReMenu.Controllers
 
 
         // GET: FoodiesController/CreateMeal
-        public ActionResult CreateMeal(int foodieId, int restaurantId)
+        public ActionResult CreateMeal()
         {
             ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
             ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
-            MealCreateViewModel viewModel = new MealCreateViewModel()
-            {
-                FoodieId = foodieId,
-                RestaurantId = restaurantId
-            };
+            ViewData["FoodieId"] = new SelectList(_context.Foodies, "FoodieId", "FoodieId");
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId");
 
-            return View(viewModel);
+            return View();
         }
 
         // POST: FoodiesController/CreateMeal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Obsolete]
-        public async Task<ActionResult> CreateMeal([Bind("MealId, FoodieId, RestaurantId, FoodOrder, Category, Price, Rating, FutureModification, FutureOrder, Photo")] MealCreateViewModel model)
+        public async Task<ActionResult> CreateMeal([Bind("MealId, FoodieId, RestaurantId, FoodOrder, Category, Price, Rating, FutureModification, FutureOrder, Photo")] Meal meal)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
             
             var foodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
-            string uniqueFileName = null;
-            if (model.Photo != null)
-            {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-            }
 
             try
             {
-                Meal newMeal = new Meal();
-                newMeal.FoodieId = model.FoodieId;
-                newMeal.RestaurantId = model.RestaurantId;
-                newMeal.FoodOrder = model.FoodOrder;
-                newMeal.Category = model.Category;
-                newMeal.Price = model.Price;
-                newMeal.Rating = model.Rating;
-                newMeal.FutureModification = model.FutureModification;
-                newMeal.FutureOrder = model.FutureOrder;
-                newMeal.PhotoPath = uniqueFileName;
+                Meal newMeal = new Meal
+                {
+                    FoodieId = meal.FoodieId,
+                    RestaurantId = meal.RestaurantId,
+                    FoodOrder = meal.FoodOrder,
+                    Category = meal.Category,
+                    Price = meal.Price,
+                    Rating = meal.Rating,
+                    FutureModification = meal.FutureModification,
+                    FutureOrder = meal.FutureOrder,
+                    PhotoPath = meal.PhotoPath
+                };
                 _context.Add(newMeal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
