@@ -43,10 +43,10 @@ namespace ReMenu.ViewModels
         public string FutureOrder { get; set; }
 
         [Display(Name = "Favorite This Restaurant?")]
-        public bool FavoriteRestaurant { get; set; }
+        public bool FavRestaurant { get; set; }
 
         [Display(Name = "Favorite This Meal?")]
-        public bool FavoriteMeal { get; set; }
+        public bool FavMeal { get; set; }
 
         //public IFormFile Photo { get; set; }
     }

@@ -242,7 +242,7 @@ namespace ReMenu.Controllers
             meal.Rating = mealModel.Rating;
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
-            meal.FavoriteMeal = mealModel.FavoriteMeal;
+            meal.FavMeal = mealModel.FavMeal;
             meal.PhotoPath = null;
             //meal.PhotoPath = uniqueFileName;
 
@@ -252,13 +252,14 @@ namespace ReMenu.Controllers
             meal.Restaurant.City = mealModel.City;
             meal.Restaurant.State = mealModel.State;
             meal.Restaurant.ZipCode = mealModel.ZipCode;
-            meal.Restaurant.FavoriteRestaurant = mealModel.FavoriteRestaurant;
+            meal.Restaurant.FavRestaurant = mealModel.FavRestaurant;
 
             _repo.Save();
-            return View(mealModel);
+            //return View(mealModel);
+            return RedirectToAction("FoodDetails", new { id = meal.MealId });
 
             //return RedirectToAction("FoodDetails", mealModel);
-            //return RedirectToAction("FoodDetails", new { id = meal.MealId });
+            //return RedirectToAction("FoodDetails", new { id = meal.FoodieId });
         }
 
         // GET: FoodiesController/MealDetails/5
@@ -266,6 +267,13 @@ namespace ReMenu.Controllers
         {
             var meal = _repo.Meal.GetMeal(mealId);
             return View(meal);
+        }
+        public ActionResult AllFoodDetails()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = _repo.Foodie.GetFoodie(userId);
+            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            return View(meals);
         }
 
 
