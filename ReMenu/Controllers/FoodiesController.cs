@@ -383,13 +383,5 @@ namespace ReMenu.Controllers
 
             return allMeals;
         }*/
-
-        public ActionResult GetMeals()
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Foodie foodie = _repo.Foodie.GetFoodie(userId);
-            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-            return View(meals);
-        }
     }
 }
