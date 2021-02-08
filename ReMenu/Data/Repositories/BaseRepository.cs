@@ -25,7 +25,7 @@ namespace ReMenu.Repositories
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return ApplicationDbContext.Set<T>().AsNoTracking();
+            return ApplicationDbContext.Set<T>().Where(expression).AsNoTracking();
         }
 
         public void Create(T entity)

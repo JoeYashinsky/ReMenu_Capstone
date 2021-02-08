@@ -19,8 +19,8 @@ namespace ReMenu.Repositories
 
         public void CreateFoodie(Foodie foodie) => Create(foodie);
         public List<Foodie> GetAllFoodies() => FindAll().ToList();
-        public Foodie GetFoodie(string userId) => FindByCondition(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
-        public Foodie GetFoodie(int foodieId) => FindByCondition(f => f.FoodieId.Equals(foodieId)).FirstOrDefault();
+        public Foodie GetFoodie(string userId) => FindByCondition(f => f.IdentityUserId.Equals(userId)).SingleOrDefault();
+        public Foodie GetFoodie(int foodieId) => FindByCondition(f => f.FoodieId.Equals(foodieId)).SingleOrDefault();
         public void EditFoodie(Foodie foodie) => Update(foodie);
         public void DeleteFoodie(Foodie foodie) => Delete(foodie);
 

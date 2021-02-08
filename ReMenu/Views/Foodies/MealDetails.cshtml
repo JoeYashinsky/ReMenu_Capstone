@@ -1,4 +1,4 @@
-﻿@model ReMenu.Models.Meal
+﻿@model ReMenu.ViewModels.MealRestaurantViewModel
 
 @{
     ViewData["Title"] = "MealDetails";
@@ -8,25 +8,16 @@
 <h1>MealDetails</h1>
 
 <div>
-    <h4>Meal</h4>
+    <h4>MealRestaurantViewModel</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Foodie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Foodie.FoodieId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Restaurant)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Restaurant.RestaurantId)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FoodOrder)
         </dt>
-        <dd class="col-sm-10">
+        @*<dd class = "col-sm-10">
+           <h3>@Model.FoodOrder</h3>
+        </dd>*@
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FoodOrder)
         </dd>
         <dt class="col-sm-2">
@@ -60,14 +51,38 @@
             @Html.DisplayFor(model => model.FutureOrder)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoPath)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhotoPath)
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StreetAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StreetAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.State)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ZipCode)
         </dd>
     </dl>
 </div>
-@*<div>
-    <a asp-action="Edit" asp-route-id="@Model.MealId">Edit</a> |
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
-</div>*@
+</div>
