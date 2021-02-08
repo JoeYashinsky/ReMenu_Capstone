@@ -276,6 +276,29 @@ namespace ReMenu.Controllers
             return View(meals);
         }
 
+        public ActionResult FilterByTraits()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = _repo.Foodie.GetFoodie(userId);
+
+            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            filteredMeals = meals.W
+
+            return View();
+        }
+
+        public IEnumerable<Meal> GetMealsByRank(int rating)
+        {
+            var mealsByRanking = _repo.Meal.FindByCondition(m => m.Rating >= rating);
+            return mealsByRanking;
+        }
+
+        public IEnumerable<Meal> GetMealsByCategory(string category)
+        {
+            var mealsByCategory = _repo.Meal.FindByCondition(m => m.Category == category);
+            return mealsByCategory;
+        }
+
 
 
         /*// POST: FoodiesController/CreateMeal
