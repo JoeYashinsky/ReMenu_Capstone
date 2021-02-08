@@ -41,7 +41,7 @@ namespace ReMenu.Models
         [Display(Name = "Favorite This Meal?")]
         public bool FavoriteMeal { get; set; }
 
-        public string PhotoPath { get; set; }
+        public string? PhotoPath { get; set; }
 
     }
 }

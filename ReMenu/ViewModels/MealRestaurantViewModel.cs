@@ -48,6 +48,6 @@ namespace ReMenu.ViewModels
         [Display(Name = "Favorite This Meal?")]
         public bool FavoriteMeal { get; set; }
 
-        public IFormFile Photo { get; set; }
+        //public IFormFile Photo { get; set; }
     }
 }
