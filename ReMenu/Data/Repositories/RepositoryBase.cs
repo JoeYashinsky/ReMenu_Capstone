@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Repositories
 {
-    public class BaseRepository<T> : IInterfaceBase<T> where T : class
+    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         protected ApplicationDbContext ApplicationDbContext { get; set; }
 
-        public BaseRepository(ApplicationDbContext applicationDb)
+        public RepositoryBase(ApplicationDbContext applicationDb)
         {
             ApplicationDbContext = applicationDb;
         }

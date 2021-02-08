@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Repositories
 {
-    public class RestaurantRepository : BaseRepository<Restaurant>, IRestaurantInterface
+    public class RestaurantRepository : RepositoryBase<Restaurant>, IRestaurantRepository
     {
         private readonly object _repo;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Interfaces
 {
-    public interface IRestaurantInterface : IInterfaceBase<Restaurant>
+    public interface IRestaurantRepository : IRepositoryBase<Restaurant>
     {
         void CreateRestaurant(Restaurant restaurant);
         List<Restaurant> GetRestaurants();

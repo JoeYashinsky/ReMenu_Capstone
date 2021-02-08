@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Repositories
 {
-    public class RepositoryWrapper : IInterfaceWrapper
+    public class RepositoryWrapper : IRepositoryWrapper
     {
         private ApplicationDbContext _context;
-        private IFoodieInterface _foodie;
-        private IMealInterface _meal;
-        private IRestaurantInterface _restaurant;
-
+        private IFoodieRepository _foodie;
+        private IMealRepository _meal;
+        private IRestaurantRepository _restaurant;
 
         public RepositoryWrapper(ApplicationDbContext context)
         {
             _context = context;
         }
 
-
-        public IFoodieInterface Foodie
+        public IFoodieRepository Foodie
         {
             get
             {
@@ -33,9 +31,7 @@ namespace ReMenu.Repositories
             }
         }
 
-
-
-        public IMealInterface Meal
+        public IMealRepository Meal
         {
             get
             {
@@ -47,9 +43,7 @@ namespace ReMenu.Repositories
             }
         }
 
-
-
-        public IRestaurantInterface Restaurant
+        public IRestaurantRepository Restaurant
         {
             get
             {

@@ -17,10 +17,10 @@ namespace ReMenu.Controllers
 {
     public class FoodiesController : Controller
     {
-        private readonly IInterfaceWrapper _repo;        
+        private readonly IRepositoryWrapper _repo;        
         private readonly IWebHostEnvironment hostingEnvironment;
 
-        public FoodiesController(IInterfaceWrapper repo, IWebHostEnvironment hostingEnvironment)
+        public FoodiesController(IRepositoryWrapper repo, IWebHostEnvironment hostingEnvironment)
         {
             _repo = repo;
             this.hostingEnvironment = hostingEnvironment;
@@ -224,16 +224,13 @@ namespace ReMenu.Controllers
             string uniqueFileName = null;
             if (mealModel.Photo != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + mealModel.Photo.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 mealModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
             }
 
             Meal meal = new Meal();
-            Restaurant mealRestaurant = new Restaurant();
-
-            _repo.Meal.Create(meal);
             meal.Foodie = thisFoodie;
             meal.FoodieId = thisFoodie.FoodieId;
             meal.FoodOrder = mealModel.FoodOrder;
@@ -243,8 +240,9 @@ namespace ReMenu.Controllers
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
             meal.FavoriteMeal = mealModel.FavoriteMeal;
-           
+            meal.PhotoPath = uniqueFileName;
 
+            Restaurant mealRestaurant = new Restaurant();
             meal.Restaurant = mealRestaurant;
             meal.Restaurant.Name = mealModel.Name;
             meal.Restaurant.StreetAddress = mealModel.StreetAddress;
@@ -253,8 +251,7 @@ namespace ReMenu.Controllers
             meal.Restaurant.ZipCode = mealModel.ZipCode;
             meal.Restaurant.FavoriteRestaurant = mealModel.FavoriteRestaurant;
 
-            PhotoPath = uniqueFileName;
-
+            _repo.Meal.Create(meal);
             _repo.Save();
             return View(mealModel);
 

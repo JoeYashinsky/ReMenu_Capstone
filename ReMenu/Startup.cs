@@ -41,7 +41,7 @@ namespace ReMenu
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            services.AddScoped<IInterfaceWrapper, RepositoryWrapper>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             services.AddScoped<ClaimsPrincipal>(s => 
                 s.GetService<IHttpContextAccessor>().HttpContext.User);

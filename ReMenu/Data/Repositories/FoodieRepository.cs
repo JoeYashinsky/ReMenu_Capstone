@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Repositories
 {
-    public class FoodieRepository : BaseRepository<Foodie>, IFoodieInterface
+    public class FoodieRepository : RepositoryBase<Foodie>, IFoodieRepository
     {
-        private readonly object _repo;
-
         public FoodieRepository(ApplicationDbContext applicationDb) : base(applicationDb)
         {
         }
 
-        public void CreateFoodie(Foodie foodie) => Create(foodie);
-        public List<Foodie> GetAllFoodies() => FindAll().ToList();
         public Foodie GetFoodie(string userId) => FindByCondition(f => f.IdentityUserId.Equals(userId)).SingleOrDefault();
         public Foodie GetFoodie(int foodieId) => FindByCondition(f => f.FoodieId.Equals(foodieId)).SingleOrDefault();
+        public void CreateFoodie(Foodie foodie) => Create(foodie);
+        public List<Foodie> GetAllFoodies() => FindAll().ToList();
         public void EditFoodie(Foodie foodie) => Update(foodie);
         public void DeleteFoodie(Foodie foodie) => Delete(foodie);
 

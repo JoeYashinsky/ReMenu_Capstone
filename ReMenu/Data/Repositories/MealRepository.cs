@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace ReMenu.Repositories
 {
-    public class MealRepository : BaseRepository<Meal>, IMealInterface
+    public class MealRepository : RepositoryBase<Meal>, IMealRepository
     {
-        private readonly object _repo;
-
         public MealRepository(ApplicationDbContext applicationDb) : base(applicationDb)
         {
 
