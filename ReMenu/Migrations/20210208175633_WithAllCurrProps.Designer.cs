@@ -10,8 +10,8 @@ using ReMenu.Data;
 namespace ReMenu.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210208073421_WithFavs")]
-    partial class WithFavs
+    [Migration("20210208175633_WithAllCurrProps")]
+    partial class WithAllCurrProps
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace ReMenu.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "35ec7a06-ce7f-4a83-bf0e-dd38b129eb4b",
-                            ConcurrencyStamp = "63c7b830-6ba2-4a34-9aba-811ede4eb7b3",
+                            Id = "1a7d69bd-bfbb-40ba-bb99-6d4dd7da3b04",
+                            ConcurrencyStamp = "ef5a3d80-a70d-43be-bcb1-52c8642ce7ab",
                             Name = "Foodie",
                             NormalizedName = "FOODIE"
                         });

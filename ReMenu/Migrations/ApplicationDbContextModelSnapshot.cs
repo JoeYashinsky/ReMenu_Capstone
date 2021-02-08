@@ -48,8 +48,8 @@ namespace ReMenu.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3c4d5743-c18d-4c59-a537-c63355ea9981",
-                            ConcurrencyStamp = "4f88eb7f-4d54-47df-a835-8e2e2f85d848",
+                            Id = "1a7d69bd-bfbb-40ba-bb99-6d4dd7da3b04",
+                            ConcurrencyStamp = "ef5a3d80-a70d-43be-bcb1-52c8642ce7ab",
                             Name = "Foodie",
                             NormalizedName = "FOODIE"
                         });

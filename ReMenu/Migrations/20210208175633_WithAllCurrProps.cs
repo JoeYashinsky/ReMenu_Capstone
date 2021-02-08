@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReMenu.Migrations
 {
-    public partial class initial : Migration
+    public partial class WithAllCurrProps : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,7 +56,8 @@ namespace ReMenu.Migrations
                     StreetAddress = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true)
+                    ZipCode = table.Column<string>(nullable: true),
+                    FavoriteRestaurant = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,6 +205,7 @@ namespace ReMenu.Migrations
                     Rating = table.Column<int>(nullable: false),
                     FutureModification = table.Column<string>(nullable: true),
                     FutureOrder = table.Column<string>(nullable: true),
+                    FavoriteMeal = table.Column<bool>(nullable: false),
                     PhotoPath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -226,7 +228,7 @@ namespace ReMenu.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cd78a042-9d3d-4503-bd42-355be499337c", "aedd6cbd-5ed6-479c-a17b-91d951a870bd", "Foodie", "FOODIE" });
+                values: new object[] { "1a7d69bd-bfbb-40ba-bb99-6d4dd7da3b04", "ef5a3d80-a70d-43be-bcb1-52c8642ce7ab", "Foodie", "FOODIE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
