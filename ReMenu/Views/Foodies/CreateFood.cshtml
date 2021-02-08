@@ -3,10 +3,9 @@
 @{
     ViewData["Title"] = "CreateFood";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> allStates = (List<string>)ViewData["allStates"];
     List<string> Categories = (List<string>)ViewData["Categories"];
     List<int> Ratings = (List<int>)ViewData["Ratings"];
-    List<string> allStates = (List<string>)ViewData["allStates"];
-
 }
 
 <h1>The 'Bread and Butter' of Your Meal</h1>
@@ -73,12 +72,12 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FavoriteMeal" /> @Html.DisplayNameFor(model => model.FavoriteMeal)
+                    <input class="form-check-input" asp-for="FavoriteMeal" /> @Html.DisplayNameFor(m => m.FavoriteMeal)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FavoriteRestaurant" /> @Html.DisplayNameFor(model => model.FavoriteRestaurant)
+                    <input class="form-check-input" asp-for="FavoriteRestaurant" /> @Html.DisplayNameFor(r => r.FavoriteRestaurant)
                 </label>
             </div>
             <div class="form-group">

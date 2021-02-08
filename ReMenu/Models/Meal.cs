@@ -43,7 +43,5 @@ namespace ReMenu.Models
 
         public string PhotoPath { get; set; }
 
-
-
     }
 }
