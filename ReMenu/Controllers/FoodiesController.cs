@@ -213,6 +213,9 @@ namespace ReMenu.Controllers
 
         public ActionResult CreateFood()
         {
+            ViewData["allStates"] = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS",
+                "KY", "LA", "ME", "MD", "MA", "MI","MN", "MS", "MO","MT", "NE", "NV","NH", "NJ", "NM","NY", "NC", "ND","OH", "OK", "OR","PA", "RI", "SC","SD",
+                "TN", "TX","UT", "VT", "VA","WA", "WV", "WI","WY" };
             ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
             ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
             return View(new MealRestaurantViewModel());
@@ -237,7 +240,8 @@ namespace ReMenu.Controllers
             meal.Rating = mealModel.Rating;
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
-            meal.PhotoPath = null;
+            meal.FavoriteMeal = mealModel.FavoriteMeal;
+
             //_context.Meals.
 
             //newMeal.PhotoPath = uniqueFileName;
@@ -248,6 +252,7 @@ namespace ReMenu.Controllers
             meal.Restaurant.City = mealModel.City;
             meal.Restaurant.State = mealModel.State;
             meal.Restaurant.ZipCode = mealModel.ZipCode;
+            meal.Restaurant.FavoriteRestaurant = mealModel.FavoriteRestaurant;
 
             _repo.Save();
             return View(mealModel);

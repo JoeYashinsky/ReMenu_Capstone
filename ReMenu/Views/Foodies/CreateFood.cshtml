@@ -3,46 +3,19 @@
 @{
     ViewData["Title"] = "CreateFood";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> Categories = (List<string>)ViewData["Categories"];
+    List<int> Ratings = (List<int>)ViewData["Ratings"];
+    List<string> allStates = (List<string>)ViewData["allStates"];
+
 }
 
-<h1>CreateFood</h1>
+<h1>The 'Bread and Butter' of Your Meal</h1>
 
-<h4>MealRestaurantViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateFood">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FoodOrder" class="control-label"></label>
-                <input asp-for="FoodOrder" class="form-control" />
-                <span asp-validation-for="FoodOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FutureModification" class="control-label"></label>
-                <input asp-for="FutureModification" class="form-control" />
-                <span asp-validation-for="FutureModification" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FutureOrder" class="control-label"></label>
-                <input asp-for="FutureOrder" class="form-control" />
-                <span asp-validation-for="FutureOrder" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -60,13 +33,53 @@
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
+                <select asp-for="State" class="form-control" asp-items="new SelectList(allStates)"> </select>
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ZipCode" class="control-label"></label>
                 <input asp-for="ZipCode" class="form-control" />
                 <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodOrder" class="control-label"></label>
+                <input asp-for="FoodOrder" class="form-control" />
+                <span asp-validation-for="FoodOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control" asp-items="new SelectList(Categories)"> </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <select asp-for="Rating" class="form-control" asp-items="new SelectList(Ratings)"> </select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FutureModification" class="control-label"></label>
+                <input asp-for="FutureModification" class="form-control" />
+                <span asp-validation-for="FutureModification" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FutureOrder" class="control-label"></label>
+                <input asp-for="FutureOrder" class="form-control" />
+                <span asp-validation-for="FutureOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FavoriteMeal" /> @Html.DisplayNameFor(model => model.FavoriteMeal)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FavoriteRestaurant" /> @Html.DisplayNameFor(model => model.FavoriteRestaurant)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

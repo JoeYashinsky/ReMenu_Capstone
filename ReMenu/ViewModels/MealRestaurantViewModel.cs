@@ -11,6 +11,19 @@ namespace ReMenu.ViewModels
     public class MealRestaurantViewModel
     {
 
+        [Display(Name = "Restaurant Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Street Address")]
+        public string StreetAddress { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        [Display(Name = "Zip Code")]
+        public string ZipCode { get; set; }
+
         [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
 
@@ -29,19 +42,12 @@ namespace ReMenu.ViewModels
         [Display(Name = "Wish I Would Have...")]
         public string FutureOrder { get; set; }
 
+        [Display(Name = "Favorite This Restaurant?")]
+        public bool FavoriteRestaurant { get; set; }
+
+        [Display(Name = "Favorite This Meal?")]
+        public bool FavoriteMeal { get; set; }
+
         public IFormFile Photo { get; set; }
-
-        [Display(Name = "Restaurant Name")]
-        public string Name { get; set; }
-
-        [Display(Name = "Street Address")]
-        public string StreetAddress { get; set; }
-
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        [Display(Name = "Zip Code")]
-        public string ZipCode { get; set; }
     }
 }

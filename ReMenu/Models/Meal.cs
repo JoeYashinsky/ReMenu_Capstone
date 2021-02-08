@@ -38,6 +38,9 @@ namespace ReMenu.Models
         [Display(Name = "Wish I Would Have...")]
         public string FutureOrder { get; set; }
 
+        [Display(Name = "Favorite This Meal?")]
+        public bool FavoriteMeal { get; set; }
+
         public string PhotoPath { get; set; }
 
 
