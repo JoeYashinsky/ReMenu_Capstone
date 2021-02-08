@@ -282,7 +282,7 @@ namespace ReMenu.Controllers
             Foodie foodie = _repo.Foodie.GetFoodie(userId);
 
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-            filteredMeals = meals.
+            //filteredMeals = meals.
 
             return View();
         }
