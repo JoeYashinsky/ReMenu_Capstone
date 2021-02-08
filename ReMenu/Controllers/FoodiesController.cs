@@ -17,21 +17,13 @@ namespace ReMenu.Controllers
 {
     public class FoodiesController : Controller
     {
-        private readonly IInterfaceWrapper _repo;
-        [Obsolete]
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IInterfaceWrapper _repo;        
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        //[Obsolete]
-        /*public FoodiesController(IInterfaceWrapper repo, IHostingEnvironment hostingEnvironment)
+        public FoodiesController(IInterfaceWrapper repo, IWebHostEnvironment hostingEnvironment)
         {
             _repo = repo;
             this.hostingEnvironment = hostingEnvironment;
-        }*/
-        
-        //private readonly ApplicationDbContext _context;
-        public FoodiesController(IInterfaceWrapper repo)
-        {
-            _repo = repo;
         }
 
         // GET: FoodiesController
@@ -223,10 +215,20 @@ namespace ReMenu.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Obsolete]
         public ActionResult CreateFood(MealRestaurantViewModel mealModel)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie thisFoodie = _repo.Foodie.GetFoodie(userId);
+
+            string uniqueFileName = null;
+            if (mealModel.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + mealModel.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                mealModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
 
             Meal meal = new Meal();
             Restaurant mealRestaurant = new Restaurant();
@@ -241,10 +243,7 @@ namespace ReMenu.Controllers
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
             meal.FavoriteMeal = mealModel.FavoriteMeal;
-
-            //_context.Meals.
-
-            //newMeal.PhotoPath = uniqueFileName;
+           
 
             meal.Restaurant = mealRestaurant;
             meal.Restaurant.Name = mealModel.Name;
@@ -254,11 +253,16 @@ namespace ReMenu.Controllers
             meal.Restaurant.ZipCode = mealModel.ZipCode;
             meal.Restaurant.FavoriteRestaurant = mealModel.FavoriteRestaurant;
 
+            PhotoPath = uniqueFileName;
+
             _repo.Save();
             return View(mealModel);
+
             //return RedirectToAction("MealDetails", mealModel);
             //return RedirectToAction("MealDetails", new { id = meal.MealId });
         }
+
+
 
         /*// POST: FoodiesController/CreateMeal
         [HttpPost]
