@@ -221,17 +221,17 @@ namespace ReMenu.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie thisFoodie = _repo.Foodie.GetFoodie(userId);
 
-            //string uniqueFileName = null;
-            //if (mealModel.Photo != null)
-            //{
-            //    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Images");
-            //    uniqueFileName = Guid.NewGuid().ToString() + "_" + mealModel.Photo.FileName;
-            //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            //    mealModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-            //}
-
             Meal meal = new Meal();
             Restaurant mealRestaurant = new Restaurant();
+            MealImage mealImage = new MealImage();
+
+            if (mealImage.FilePath != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + mealImage.FilePath.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                mealModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
 
             _repo.Meal.Create(meal);
             meal.Foodie = thisFoodie;
@@ -243,7 +243,7 @@ namespace ReMenu.Controllers
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
             meal.FavMeal = mealModel.FavMeal;
-            meal.PhotoPath = null;
+            //meal.PhotoPath = null;
             //meal.PhotoPath = uniqueFileName;
 
             meal.Restaurant = mealRestaurant;
@@ -253,6 +253,11 @@ namespace ReMenu.Controllers
             meal.Restaurant.State = mealModel.State;
             meal.Restaurant.ZipCode = mealModel.ZipCode;
             meal.Restaurant.FavRestaurant = mealModel.FavRestaurant;
+
+            meal.MealImage = mealImage;
+
+
+            
 
             _repo.Save();
             //return View(mealModel);
@@ -282,11 +287,9 @@ namespace ReMenu.Controllers
             Foodie foodie = _repo.Foodie.GetFoodie(userId);
 
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-<<<<<<< HEAD
+
             //filteredMeals = meals.
-=======
-            filteredMeals = meals.
->>>>>>> 37bf9c93fb50e9600a8b402758beca770f165ac4
+
 
             return View();
         }
