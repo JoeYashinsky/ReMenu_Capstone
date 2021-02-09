@@ -260,7 +260,7 @@ namespace ReMenu.Controllers
 
             _repo.Save();
             //return View(mealModel);
-            return RedirectToAction("FoodDetails", new { id = meal.MealId });
+            return RedirectToAction("FoodDetails", new { mealId = meal.MealId });
 
             //return RedirectToAction("FoodDetails", mealModel);
             //return RedirectToAction("FoodDetails", new { id = meal.FoodieId });
@@ -270,7 +270,12 @@ namespace ReMenu.Controllers
         public ActionResult FoodDetails(int mealId)
         {
             var meal = _repo.Meal.GetMeal(mealId);
-            return View(meal);
+
+            MealRestaurantViewModel vm = new MealRestaurantViewModel();
+   
+
+
+            return View(vm);
         }
 
         public ActionResult ViewAllMeals()
@@ -298,8 +303,6 @@ namespace ReMenu.Controllers
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
 
             //filteredMeals = meals.
-
-
             return View();
         }
 
