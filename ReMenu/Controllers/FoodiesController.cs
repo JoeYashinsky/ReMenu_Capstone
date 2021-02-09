@@ -18,12 +18,12 @@ namespace ReMenu.Controllers
     public class FoodiesController : Controller
     {
         private readonly IRepositoryWrapper _repo;        
-        private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public FoodiesController(IRepositoryWrapper repo, IWebHostEnvironment hostingEnvironment)
         {
             _repo = repo;
-            this.hostingEnvironment = hostingEnvironment;
+            webHostEnvironment = hostingEnvironment;
         }
 
         // GET: FoodiesController
@@ -217,6 +217,8 @@ namespace ReMenu.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateFood(MealRestaurantViewModel mealModel)
         {
+            string uniqueFileName = UploadedFile(mealModel);
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie thisFoodie = _repo.Foodie.GetFoodie(userId);
 
@@ -241,6 +243,7 @@ namespace ReMenu.Controllers
             meal.FutureModification = mealModel.FutureModification;
             meal.FutureOrder = mealModel.FutureOrder;
             meal.FavMeal = mealModel.FavMeal;
+            meal.MealPicture = uniqueFileName;
             //meal.PhotoPath = null;
             //meal.PhotoPath = uniqueFileName;
 
@@ -253,8 +256,6 @@ namespace ReMenu.Controllers
             meal.Restaurant.FavRestaurant = mealModel.FavRestaurant;
 
             //meal.MealImage = mealImage;
-
-
             
 
             _repo.Save();
@@ -302,6 +303,23 @@ namespace ReMenu.Controllers
         {
             var mealsByCategory = _repo.Meal.FindByCondition(m => m.Category == category);
             return mealsByCategory;
+        }
+
+        private string UploadedFile(MealRestaurantViewModel mealModel)
+        {
+            string uniqueFileName = null;
+
+            if (mealModel.MealImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + mealModel.MealImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    mealModel.MealImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
 
 
