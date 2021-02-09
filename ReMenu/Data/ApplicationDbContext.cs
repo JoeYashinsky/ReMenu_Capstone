@@ -16,12 +16,8 @@ namespace ReMenu.Data
         }
 
         public DbSet<Foodie> Foodies { get; set; }
-
-        public DbSet<MealImage> MealImages { get; set; }
-
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
-
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -20,11 +20,6 @@ namespace ReMenu.Models
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
-        [ForeignKey("MealImage")]
-        public int MealImageId { get; set; }
-        public MealImage MealImage { get; set; }
-
-
         [Display(Name = "Food Order")]  // [DisplayName("Food Order")]
         public string FoodOrder { get; set; }
 
@@ -39,6 +34,8 @@ namespace ReMenu.Models
 
         [Display(Name = "Future Modification")]
         public string FutureModification { get; set; }
+
+        public string MealPicture { get; set; }
 
         [Display(Name = "Wish I Would Have...")]
         public string FutureOrder { get; set; }
