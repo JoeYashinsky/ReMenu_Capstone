@@ -208,7 +208,7 @@ namespace ReMenu.Controllers
             ViewData["allStates"] = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS",
                 "KY", "LA", "ME", "MD", "MA", "MI","MN", "MS", "MO","MT", "NE", "NV","NH", "NJ", "NM","NY", "NC", "ND","OH", "OK", "OR","PA", "RI", "SC","SD",
                 "TN", "TX","UT", "VT", "VA","WA", "WV", "WI","WY" };
-            ViewData["Categories"] = new List<string> { "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
+            ViewData["Categories"] = new List<string> { "Appetizer", "Breakfast", "Fish", "Meat", "Pasta", "Pizza", "Salad", "Sandwich", "Soup", "Sushi", "Vegetarian" };
             ViewData["Ratings"] = new List<int> { 5, 4, 3, 2, 1 };
             return View(new MealRestaurantViewModel());
         }
@@ -272,6 +272,16 @@ namespace ReMenu.Controllers
             var meal = _repo.Meal.GetMeal(mealId);
             return View(meal);
         }
+
+        public ActionResult ViewAllMeals()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = _repo.Foodie.GetFoodie(userId);
+            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            return View(meals);
+        }
+
+        // trying to display map with all rest. markers
         public ActionResult AllFoodDetails()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -19,7 +19,6 @@
             <th>@Html.DisplayNameFor(model => model.Price)</th>
             <th>@Html.DisplayNameFor(model => model.Rating)</th>
             <th>@Html.DisplayNameFor(model => model.FutureModification)</th>
-            <th>@Html.DisplayNameFor(model => model.MealPicture)</th>
             <th>@Html.DisplayNameFor(model => model.FutureOrder)</th>
         </tr>
     </thead>
@@ -28,7 +27,7 @@
         {
             <tr>
                 <td>
-                    <img src="~/images/@item.MealPicture"
+                    <img src="~/Images/@item.MealPicture"
                          class="rounded-circle"
                          height="40" width="40"
                          asp-append-version="true"/>
