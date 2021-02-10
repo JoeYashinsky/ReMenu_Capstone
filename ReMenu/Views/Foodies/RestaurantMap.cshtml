@@ -27,12 +27,89 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.State)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ZipCode)
-        </dd>
     </dl>
 </div>
+
+@section scripts{
+
+    <script>
+        function initMap() {
+            // Map options
+            var options = {
+                zoom: 13,
+                center: { lat: 42.5031, lng: -83.1835 }
+            }
+
+            // New map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+        //call geocode
+        //geocode();
+
+        }
+
+
+        // get location form
+        var locationForm = document.getElementById('location-form');
+
+        // listen for Submit
+        locationForm.addEventListener('submit', geocode);
+
+        function geocode(e) {
+            // prevent actual submit
+            e.preventDefault();
+
+            var location = document.getElementById('location-input').value;
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: location,
+                    key: 'AIzaSyDH-AHPkG7sqhn-wuOeBQD1QVN2KL_WwnU'
+                }
+            })
+                .then(function (response) {
+                    // log full response
+                    console.log(response);
+
+                    // formatted address
+                    var formattedAddress = response.data.results[0].formatted_address;
+                    var formattedAddressOutput = `
+                            <ul class="list-group">
+                               <li class="list-group-item">${formattedAddress}</li>
+                            </ul>
+                        `;
+
+                    // address components
+                    var addressComponents = response.data.results[0].address_components;
+                    var addressComponentsOutput = '<ul class="list-group">';
+                    for (var i = 0; i < addressComponents.length; i++) {
+                        addressComponentsOutput += `
+                           <li class="list-group-item"><strong>${addressComponents[i].types[0]
+                            }</strong> ${addressComponents[i].long_name}</li>
+                           }
+                        `;
+                    }
+                    addressComponentsOutput += '</ul>';
+
+                    // geometry
+                    var lat = response.data.results[0].geometry.location.lat;
+                    var lng = response.data.results[0].geometry.location.lng;
+                    var geometryOutput = `
+                           <ul class="list-group">
+                             <li class="list-group-item"><strong>Latitude</strong>:
+                             ${lat}</li>
+                             <li class="list-group-item"><strong>Longitude</strong>:
+                             ${lng}</li>
+                          </ul>
+                        `;
+
+                    // output to the app
+                    document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+                    document.getElementById('address-components').innerHTML = addressComponentsOutput;
+                    document.getElementById('geometry').innerHTML = geometryOutput;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+    </script>
+
+}
 

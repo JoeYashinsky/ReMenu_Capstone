@@ -285,6 +285,7 @@ namespace ReMenu.Controllers
             return View(vm);
         }
 
+
         public ActionResult ViewAllMeals()
         {
 
@@ -445,16 +446,28 @@ namespace ReMenu.Controllers
             }
         }
 
-        /*private List<Meal> GetMeals()
-        {
-            var meals = _repo.Meal.FindAll();
-            List<Meal> allMeals = new List<Meal>();
-            foreach(Meal m in meals)
-            {
-                allMeals.Add(m);
-            }
+        //public ActionResult FilteredIndex(MealFilterModel filterModel)
+        //{
+        //    var meals = new FoodiesController();
+        //    var model = meals.GetFiltMeals(filterModel);
+        //    return View(model);
+        //}
 
-            return allMeals;
-        }*/
+        //public IQueryable<Meal> GetFiltMeals(MealFilterModel filterModel)
+        //{
+        //    var result = _repo.Meals.AsQueryable();
+        //    if (filterModel != null)
+        //    {
+        //        if (filterModel.Category != null)
+        //        {
+        //            result = result.Where(x => x.)
+        //        }
+
+        //    }
+        //}
+
+
+
+
     }
 }
