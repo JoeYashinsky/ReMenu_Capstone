@@ -72,6 +72,7 @@ namespace ReMenu.Controllers
         public ActionResult FoodieDetails(int id)
         {
             var foodie = _repo.Foodie.GetFoodie(id);
+
             return View(foodie);
         }
 
