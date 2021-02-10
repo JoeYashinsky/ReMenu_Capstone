@@ -23,7 +23,7 @@ namespace ReMenu.ActionFilters
             {
                 if (_claimsPrincipal.IsInRole("Foodie"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Foodies", null);
+                    context.Result = new RedirectToActionResult("CreateFood", "Foodies", null);
                 }
             }
 
