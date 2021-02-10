@@ -205,6 +205,11 @@ img {
   border-style: none;
 }
 
+img-logo {
+    margin-left: 75%;
+    transform: translate(-50%, 0);
+}
+
 svg {
   overflow: hidden;
   vertical-align: middle;

@@ -34,7 +34,8 @@ namespace ReMenu.Models
 
         [Display(Name = "Future Modification")]
         public string FutureModification { get; set; }
-
+        
+        [Display(Name = "Meal Photo")]
         public string MealPicture { get; set; }
 
         [Display(Name = "Wish I Would Have...")]

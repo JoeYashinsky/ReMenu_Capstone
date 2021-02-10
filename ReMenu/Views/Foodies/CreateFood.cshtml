@@ -8,9 +8,8 @@
     List<int> Ratings = (List<int>)ViewData["Ratings"];
 }
 
-<h1>CreateFood</h1>
+<h1>Log the Details of Your Meal</h1>
 
-<h4>MealRestaurantViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -81,22 +80,26 @@
                     <input class="form-check-input" asp-for="FavMeal" /> @Html.DisplayNameFor(model => model.FavMeal)
                 </label>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="MealImage" class="control-label"></label>
-                    <div class="custom-file">
-                        <input asp-for="MealImage" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Select File</label>
-                    </div>
+            <div class="form-group form-check">
+                <label asp-for="MealImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="MealImage" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Select File</label>
                     <span asp-validation-for="MealImage" class="text-danger"></span>
                 </div>
             </div>
+            <!--<div class="custom-logo-div">-->
+                @*<img src="~/Images/CapstoneLogo.png" alt="ReMenu logo" width="550" height="650" />*@
+            <!--</div>-->
+            @*<div style="text-align: right"><img src="~/Images/CapstoneLogo.png" width="250" height="375" /></div>*@
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -9,11 +9,12 @@
 
 
 <p>
-    <a asp-action="CreateFood">Create New</a><a asp-action="FilterByTraits">Filter By Appetizer and Rating</a>
+    <a asp-action="CreateFood">Create New</a>
 </p>
 <table class="table" table-bordered">
     <thead>
         <tr>
+            <th>@Html.DisplayNameFor(model => model.MealPicture)</th>
             <th>@Html.DisplayNameFor(model => model.FoodOrder)</th>
             <th>@Html.DisplayNameFor(model => model.Category)</th>
             <th>@Html.DisplayNameFor(model => model.Price)</th>
@@ -44,7 +45,7 @@
     </tbody>
 </table>
 
-<div>
+@*<div>
         @foreach (var item in Model)
         {
             @if (item.Category == "Appetizer")
@@ -66,5 +67,5 @@
              }
             
          }
-</div>
+</div>*@
 
