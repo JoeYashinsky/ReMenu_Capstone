@@ -285,14 +285,19 @@ namespace ReMenu.Controllers
             return View(vm);
         }
 
-
         public ActionResult ViewAllMeals()
         {
-
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Foodie foodie = _repo.Foodie.GetFoodie(userId);
-            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-            return View(meals);
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Foodie foodie = _repo.Foodie.GetFoodie(userId);
+                List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+                return View(meals);
+            }
+            catch
+            {
+                return View("Index");
+            }
         }
 
         // trying to display map with all rest. markers
@@ -304,15 +309,24 @@ namespace ReMenu.Controllers
             return View(meals);
         }
 
-        public ActionResult FilterByTraits(int rating, string category)
+        public ActionResult FilterByTraits()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = _repo.Foodie.GetFoodie(userId);
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-            var mealsByRankAndCat = meals.Where(m => m.Rating >= rating && m.Category == category).ToList();
 
-            return View(mealsByRankAndCat);
+            return View(meals);
         }
+
+        //public ActionResult FilterByTraits(int rating, string category)
+        //{
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    Foodie foodie = _repo.Foodie.GetFoodie(userId);
+        //    List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+        //    var mealsByRankAndCategory = meals.Where(m => m.Rating >= rating && m.Category == category).ToList();
+
+        //    return View(mealsByRankAndCategory);
+        //}
 
 
         public ActionResult GetMealsByRank(int rating)

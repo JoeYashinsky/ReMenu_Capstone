@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ReMenu.Models.Meal>
+
+@{
+    ViewData["Title"] = "FilterByTraits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Meals By Rank and Category</h1>
+
+<table class="table" table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FoodOrder)</th>
+            <th>@Html.DisplayNameFor(model => model.Category)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Rating)</th>
+            <th>@Html.DisplayNameFor(model => model.FutureModification)</th>
+            <th>@Html.DisplayNameFor(model => model.FutureOrder)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (item.Category == "Appetizer")
+            {
+                if (item.Rating >= 3)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Images/@item.MealPicture"
+                                 class="w3-round"
+                                 height="150" width="100"
+                                 asp-append-version="true" />
+                        </td>
+                        <td>@item.FoodOrder</td>
+                        <td>@item.Category</td>
+                        <td>@item.Price</td>
+                        <td>@item.Rating</td>
+                        <td>@item.FutureModification</td>
+                        <td>@item.FutureOrder</td>
+                    </tr>
+                }
+
+
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
