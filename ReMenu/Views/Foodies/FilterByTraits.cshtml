@@ -5,7 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Meals By Rank and Category</h1>
+<h2>Meals By Category and Rank</h2>
+<p>Let's find what you're looking for!</p>
+
+
+<label for="category">Category</label>
+<select id="category" name="category">
+    <option value="appetizer">Appetizer</option>
+    <option value="breakfast">Breakfast</option>
+    <option value="fish">Fish</option>
+    <option value="meat">Meat</option>
+    <option value="pasta">Pasta</option>
+    <option value="pizza">Pizza</option>
+    <option value="salad">Fish</option>
+    <option value="sandwich">Sandwich</option>
+    <option value="soup">Soup</option>
+    <option value="sushi">Sushi</option>
+    <option value="vegetarian">Vegetarian</option>
+</select>
+
+<label for="rating">Rating</label>
+<select id="rating" name="rating">
+    <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
+</select>
 
 <table class="table" table-bordered">
     <thead>
