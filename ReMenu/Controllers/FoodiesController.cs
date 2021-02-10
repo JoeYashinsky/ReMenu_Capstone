@@ -40,7 +40,7 @@ namespace ReMenu.Controllers
             }
             //var myMeals = _repo.Meal.GetMealsAsync();
 
-            return View("Index");
+            return View("CreateFood");
         }
 
         // GET: FoodiesController/Create
@@ -272,14 +272,22 @@ namespace ReMenu.Controllers
             var meal = _repo.Meal.GetMeal(mealId);
 
             MealRestaurantViewModel vm = new MealRestaurantViewModel();
-   
 
+            vm.Category = meal.Category;
+            vm.FutureOrder = meal.FutureOrder;
+            vm.FutureModification = meal.FutureModification;
+            vm.Price = meal.Price;
+            vm.Rating = meal.Rating;
+            vm.FavMeal = meal.FavMeal;
+            vm.FoodOrder = meal.FoodOrder;
+           
 
             return View(vm);
         }
 
         public ActionResult ViewAllMeals()
         {
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = _repo.Foodie.GetFoodie(userId);
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
@@ -295,27 +303,33 @@ namespace ReMenu.Controllers
             return View(meals);
         }
 
-        public ActionResult FilterByTraits()
+        public ActionResult FilterByTraits(int rating, string category)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Foodie foodie = _repo.Foodie.GetFoodie(userId);
-
             List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            var mealsByRankAndCat = meals.Where(m => m.Rating >= rating && m.Category == category).ToList();
 
-            //filteredMeals = meals.
-            return View();
+            return View(mealsByRankAndCat);
         }
 
-        public IEnumerable<Meal> GetMealsByRank(int rating)
+
+        public ActionResult GetMealsByRank(int rating)
         {
-            var mealsByRanking = _repo.Meal.FindByCondition(m => m.Rating >= rating);
-            return mealsByRanking;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = _repo.Foodie.GetFoodie(userId);
+            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            var mealsByRanking = meals.Where(m => m.Rating >= rating).ToList();
+            return View(mealsByRanking);
         }
 
-        public IEnumerable<Meal> GetMealsByCategory(string category)
+        public ActionResult GetMealsByCategory(string category)
         {
-            var mealsByCategory = _repo.Meal.FindByCondition(m => m.Category == category);
-            return mealsByCategory;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Foodie foodie = _repo.Foodie.GetFoodie(userId);
+            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
+            var mealsByCategory = meals.Where(m => m.Category == category).ToList();
+            return View(mealsByCategory);
         }
 
         private string UploadedFile(MealRestaurantViewModel mealModel)

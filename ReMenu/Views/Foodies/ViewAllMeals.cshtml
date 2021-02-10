@@ -13,7 +13,6 @@
 <table class="table" table-bordered">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Restaurant)</th>
             <th>@Html.DisplayNameFor(model => model.FoodOrder)</th>
             <th>@Html.DisplayNameFor(model => model.Category)</th>
             <th>@Html.DisplayNameFor(model => model.Price)</th>
@@ -25,21 +24,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="~/Images/@item.MealPicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true"/>
-                    @item.FoodOrder
-                </td>
-                <td>@item.Restaurant</td>  
-                <td>@item.Category</td>  
-                <td>@item.Price</td>  
-                <td>@item.Rating</td>  
-                <td>@item.FutureModification</td>
-                <td>@item.FutureOrder</td>
-            </tr>
+        <tr>
+            <td>
+                <img src="~/Images/@item.MealPicture"
+                     class="w3-round"
+                     height="150" width="100"
+                     asp-append-version="true" />
+            </td>
+            <td>@item.FoodOrder</td>
+            <td>@item.Category</td>
+            <td>@item.Price</td>
+            <td>@item.Rating</td>
+            <td>@item.FutureModification</td>
+            <td>@item.FutureOrder</td>
+        </tr>
         }
     </tbody>
 </table>
