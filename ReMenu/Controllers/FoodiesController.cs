@@ -318,6 +318,23 @@ namespace ReMenu.Controllers
             }
         }
 
+        public ActionResult FavoriteRestaurants()
+        {
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Foodie foodie = _repo.Foodie.GetFoodie(userId);
+                List<Restaurant> restaurants = _repo.Restaurant.GetRestaurants();
+                var favRestaurants = restaurants.Where(m => m.FavRestaurant == true).ToList();
+
+                return View(favRestaurants);
+            }
+            catch
+            {
+                return View("Index");
+            }
+        }
+
         // trying to display map with all rest. markers
         public ActionResult AllFoodDetails()
         {

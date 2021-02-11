@@ -4,8 +4,6 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
-
 <div class="row">
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -37,15 +35,23 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h4>Use another service to register.</h4>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            What did I order? At that one place? It was maybe three years ago?
+                            <br />
+                            <br />
+                            Don't worry.
+                            <br />
+                            <br />
+                            ReMenu has the situation under complete culinary control.
                         </p>
                     </div>
                 }
