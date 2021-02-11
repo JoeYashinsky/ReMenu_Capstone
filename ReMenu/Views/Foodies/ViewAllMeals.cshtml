@@ -35,7 +35,7 @@
                          height="150" width="100"
                          asp-append-version="true" />
                 </td>
-                <td>@item.FoodOrder</td>
+                <td>@item.FoodOrder</td>    
                 @*<td>@item.Restaurant.Name</td>*@
                 <td>@item.Category</td>
                 <td>@item.Price</td>
@@ -44,32 +44,7 @@
                 <td>@item.FutureOrder</td>
                 <td>@item.FavMeal</td>
             </tr>
-
         }
     </tbody>
 </table>
-
-@*<div>
-        @foreach (var item in Model)
-        {
-            @if (item.Category == "Appetizer")
-            {
-                <tr>
-                    <th>
-                        <td>@item.Category</td>
-                    </th>
-                </tr>
-                <tr>
-                    <td>@item.FoodOrder</td>
-                    <td>@item.Category</td>
-                    <td>@item.Price</td>
-                    <td>@item.Rating</td>
-                    <td>@item.FutureModification</td>
-                    <td>@item.FutureOrder</td>
-                </tr>
-
-             }
-            
-         }
-</div>*@
 

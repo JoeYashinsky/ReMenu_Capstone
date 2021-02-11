@@ -52,3 +52,69 @@
         }
     </tbody>
 </table>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>My Google Map</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h3>My Favorite Spots to Grab a Bite</h3>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            // Map options
+            var options = {
+                zoom: 13,
+                center: { lat: 42.5031, lng: -83.1835 }
+            }
+
+            // New map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+            
+            // Add marker
+            var marker = new google.maps.Marker({
+                position: { lat: 42.490700, lng: -83.187300 },
+                map: map
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content:'<h1>Kennedy Miles, 2874 Columbia Rd.</h1>'
+            })
+
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+
+            addMarker({ lat: 42.490700, lng: -83.187300 });  //Kennedy Miles: 2874 Columbia Rd., Berkley, MI 48072
+            addMarker({ lat: 42.505390, lng: -83.190390 });  //John Jenkins: 3682 Griffith Ave., Berkley, MI 48072
+            addMarker({ lat: 42.491460, lng: -83.185640 });  //Brian Pill: 2657 Harvard Rd., Berkley, MI 48072
+            addMarker({ lat: 42.496190, lng: -83.201870 });  //Bam Morris: 2649 Ellwood Ave., Berkley, MI 48072
+            addMarker({ lat: 42.498110, lng: -83.180710 });  //Kyle Watson: 2254 Franklin Rd., Berkley, MI 48072
+            addMarker({ lat: 42.49488, lng: -83.1955 });  //Connie Writeline: 2464 Oakshire Ave., Berkley, MI 48072
+
+
+            //Add Marker Function
+            function addMarker(coords) {
+                var marker = new google.maps.Marker({
+                    position: coords,
+                    map: map
+                });
+            }
+
+        }
+    </script>
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc03Sx367t7nQLv1FrVzZtf2OMu-fNIVY&callback=initMap">
+    </script>
+</body>
+</html>
