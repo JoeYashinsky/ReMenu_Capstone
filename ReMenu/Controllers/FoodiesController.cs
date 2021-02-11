@@ -273,6 +273,7 @@ namespace ReMenu.Controllers
         public ActionResult FoodDetails(int mealId)
         {
             var meal = _repo.Meal.GetMeal(mealId);
+            //var restaurant = _repo.Restaurant.GetRestaurant(restaurantId);
 
             MealRestaurantViewModel vm = new MealRestaurantViewModel();
 
@@ -283,6 +284,12 @@ namespace ReMenu.Controllers
             vm.Rating = meal.Rating;
             vm.FavMeal = meal.FavMeal;
             vm.FoodOrder = meal.FoodOrder;
+
+            //vm.Name = restaurant.Name;
+            //vm.StreetAddress = restaurant.StreetAddress;
+            //vm.City = restaurant.City;
+            //vm.State = restaurant.State;
+            //vm.ZipCode = restaurant.ZipCode;
 
             return View(vm);
         }
@@ -336,14 +343,6 @@ namespace ReMenu.Controllers
             }
         }
 
-        // trying to display map with all rest. markers
-        public ActionResult AllFoodDetails()
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Foodie foodie = _repo.Foodie.GetFoodie(userId);
-            List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-            return View(meals);
-        }
 
         public ActionResult FilterByTraits(int rating, string category)
         {
@@ -361,16 +360,6 @@ namespace ReMenu.Controllers
 
             return View(mealsByRankAndCategory);
         }
-
-        //public ActionResult FilterByTraits(int rating, string category)
-        //{
-        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    Foodie foodie = _repo.Foodie.GetFoodie(userId);
-        //    List<Meal> meals = _repo.Meal.GetMeals(foodie.FoodieId);
-        //    var mealsByRankAndCategory = meals.Where(m => m.Rating >= rating && m.Category == category).ToList();
-
-        //    return View(mealsByRankAndCategory);
-        //}
 
 
         public ActionResult GetMealsByRank(int rating)
@@ -407,53 +396,6 @@ namespace ReMenu.Controllers
             }
             return uniqueFileName;
         }
-
-
-
-        /*// POST: FoodiesController/CreateMeal
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateMeal([Bind("MealId, FoodieId, RestaurantId, FoodOrder, Category, Price, Rating, FutureModification, FutureOrder, Photo")] Meal meal)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Meal newMeal = new Meal();
-            //Foodie foodie = await _repo.Foodie.GetFoodieAsync(userId);
-            var foodie = _context.Foodies.Where(f => f.IdentityUserId.Equals(userId)).FirstOrDefault();
-            var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
-
-
-            try
-            {
-                {
-                    //Meal newMeal = new Meal();
-                    newMeal.FoodieId = foodie.FoodieId;
-                    //var thisRestaurant = _context.Restaurants.Where(r => r.RestaurantId == newMeal.RestaurantId).FirstOrDefault();
-                    newMeal.Restaurant.RestaurantId = thisRestaurant.RestaurantId;
-                 
-                    newMeal.Restaurant = thisRestaurant;
-                    newMeal.FoodOrder = meal.FoodOrder;
-                    newMeal.Category = meal.Category;
-                    newMeal.Price = meal.Price;
-                    newMeal.Rating = meal.Rating;
-                    newMeal.FutureModification = meal.FutureModification;
-                    newMeal.FutureOrder = meal.FutureOrder;
-                    newMeal.PhotoPath = meal.PhotoPath;
-                    _context.Add(newMeal);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("MealDetails", new { id = meal.MealId });
-                };
-                //return View(meal);
-                //return RedirectToAction("MealDetails", new { id = newMeal.FoodieId });
-                //return RedirectToAction("MealDetails", new { id = newMeal.MealId });
-            }
-            catch (Exception e)
-            {
-                return View(e);
-            } 
-        }*/
-
-
-
 
         // GET: FoodiessController/EditMeal/5
         public ActionResult EditMeal(int mealId)
@@ -503,29 +445,5 @@ namespace ReMenu.Controllers
                 return View();
             }
         }
-
-        //public ActionResult FilteredIndex(MealFilterModel filterModel)
-        //{
-        //    var meals = new FoodiesController();
-        //    var model = meals.GetFiltMeals(filterModel);
-        //    return View(model);
-        //}
-
-        //public IQueryable<Meal> GetFiltMeals(MealFilterModel filterModel)
-        //{
-        //    var result = _repo.Meals.AsQueryable();
-        //    if (filterModel != null)
-        //    {
-        //        if (filterModel.Category != null)
-        //        {
-        //            result = result.Where(x => x.)
-        //        }
-
-        //    }
-        //}
-
-
-
-
     }
 }
