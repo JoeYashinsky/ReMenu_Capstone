@@ -67,19 +67,18 @@
     </style>
 </head>
 <body>
-    <h3>My Favorite Spots to Grab a Bite</h3>
+    <h3>Locate Your Favorite Spots</h3>
     <div id="map"></div>
     <script>
         function initMap() {
             // Map options
             var options = {
-                zoom: 13,
+                zoom: 9,
                 center: { lat: 42.5031, lng: -83.1835 }
             }
 
             // New map
             var map = new google.maps.Map(document.getElementById('map'), options);
-
             
             // Add marker
             var marker = new google.maps.Marker({
@@ -95,12 +94,16 @@
                 infoWindow.open(map, marker);
             });
 
-            addMarker({ lat: 42.490700, lng: -83.187300 });  //Kennedy Miles: 2874 Columbia Rd., Berkley, MI 48072
-            addMarker({ lat: 42.505390, lng: -83.190390 });  //John Jenkins: 3682 Griffith Ave., Berkley, MI 48072
-            addMarker({ lat: 42.491460, lng: -83.185640 });  //Brian Pill: 2657 Harvard Rd., Berkley, MI 48072
-            addMarker({ lat: 42.496190, lng: -83.201870 });  //Bam Morris: 2649 Ellwood Ave., Berkley, MI 48072
-            addMarker({ lat: 42.498110, lng: -83.180710 });  //Kyle Watson: 2254 Franklin Rd., Berkley, MI 48072
-            addMarker({ lat: 42.49488, lng: -83.1955 });  //Connie Writeline: 2464 Oakshire Ave., Berkley, MI 48072
+            addMarker({ lat: 42.463871, lng: -83.084457 });   //Loui's Pizza: 23141 Dequindre Rd, Hazel Park, MI 48030
+            addMarker({ lat: 42.560951, lng: -83.175468 });   //Maggiano's Little Italy: 2089 W Big Beaver Rd, Troy, MI 48084
+            addMarker({ lat: 42.477930, lng: -83.467570 });   //Library Pub: 42705 Grand River Ave, Novi, MI 48375
+            addMarker({ lat: 42.502910, lng: -83.172440 });   //Crispelli's Bakery & Pizzeria: 28939 Woodward Ave., Berkley, MI 48072
+            addMarker({ lat: 42.491180, lng: -83.183980 });   //Republica: 1999 Coolidge Hwy, Berkley, MI 48072
+            addMarker({ lat: 42.331730, lng: -83.0654465 });  //Nemo's Bar: 1384 Michigan Ave, Detroit, MI 48226
+            addMarker({ lat: 42.489979, lng: -83.202477 });   //Subway: 27163 Greenfield Rd, Southfield, MI 48076
+            addMarker({ lat: 42.524071, lng: -83.349289 });   //Souper Bowl: 32407 Northwestern Hwy, Farmington Hills, MI 48334
+            addMarker({ lat: 42.500155, lng: -83.320905 });   //Cosi: 37652 W 12 Mile Rd, Farmington Hills, MI 48331
+
 
 
             //Add Marker Function
