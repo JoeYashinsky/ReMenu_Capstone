@@ -8,30 +8,43 @@
 <h2>Meals By Category and Rank</h2>
 <p>Let's find what you're looking for!</p>
 
+@*<select asp-for="Category" class="form-control" asp-items="new SelectList(Categories)"> </select>*@
 
-<label for="category">Category</label>
-<select id="category" name="category">
-    <option value="appetizer">Appetizer</option>
-    <option value="breakfast">Breakfast</option>
-    <option value="fish">Fish</option>
-    <option value="meat">Meat</option>
-    <option value="pasta">Pasta</option>
-    <option value="pizza">Pizza</option>
-    <option value="salad">Fish</option>
-    <option value="sandwich">Sandwich</option>
-    <option value="soup">Soup</option>
-    <option value="sushi">Sushi</option>
-    <option value="vegetarian">Vegetarian</option>
-</select>
+<form asp-action="FilterByTraits">
+    
+<div class="form-group">
+    <label for="Category">Category</label>
+    <select id="Category" name="Category">
+        @*<select asp-for="Category" name="Category">*@
+        <option value="Appetizer">Appetizer</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Fish">Fish</option>
+        <option value="Meat">Meat</option>
+        <option value="Pasta">Pasta</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Salad">Fish</option>
+        <option value="Sandwich">Sandwich</option>
+        <option value="Soup">Soup</option>
+        <option value="Sushi">Sushi</option>
+        <option value="Vegetarian">Vegetarian</option>
+    </select>
+</div>
 
-<label for="rating">Rating</label>
-<select id="rating" name="rating">
+<label for="Rating">Rating</label>
+<select id="Rating" name="Rating">
     <option value="5">5</option>
     <option value="4">4</option>
     <option value="3">3</option>
     <option value="2">2</option>
     <option value="1">1</option>
 </select>
+
+<div class="form-group">
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</div>
+
+</form>
+
 
 <table class="table" table-bordered">
     <thead>
@@ -48,32 +61,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.Category == "Appetizer")
-            {
-                if (item.Rating >= 3)
+            //item.Category = category;
+            //item.Rating = rating;
+            @*@if (item.Category == "Appetizer")
                 {
-                    <tr>
-                        <td>
-                            <img src="~/Images/@item.MealPicture"
-                                 class="w3-round"
-                                 height="150" width="100"
-                                 asp-append-version="true" />
-                        </td>
-                        <td>@item.FoodOrder</td>
-                        <td>@item.Category</td>
-                        <td>@item.Price</td>
-                        <td>@item.Rating</td>
-                        <td>@item.FutureModification</td>
-                        <td>@item.FutureOrder</td>
-                    </tr>
-                }
-
-
+                    if (item.Rating >= 3)*@
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.MealPicture"
+                             class="w3-round"
+                             height="150" width="100"
+                             asp-append-version="true" />
+                    </td>
+                    <td>@item.FoodOrder</td>
+                    <td>@item.Category</td>
+                    <td>@item.Price</td>
+                    <td>@item.Rating</td>
+                    <td>@item.FutureModification</td>
+                    <td>@item.FutureOrder</td>
+                </tr>
             }
+
+
         }
+        
     </tbody>
 </table>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="ViewAllMeals">Back to List</a>
 </div>

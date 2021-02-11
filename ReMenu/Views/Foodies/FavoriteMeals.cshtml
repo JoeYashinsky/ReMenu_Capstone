@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ReMenu.Models.Meal>
+
+@{
+    ViewData["Title"] = "FavoriteMeals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My All-Time Favorite Meals</h2>
+
+<p>
+    <a asp-action="CreateFood">Create New</a>
+</p>
+<table class="table" table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MealPicture)</th>
+            <th>@Html.DisplayNameFor(model => model.FoodOrder)</th>
+            <th>@Html.DisplayNameFor(model => model.Category)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Rating)</th>
+            <th>@Html.DisplayNameFor(model => model.FutureModification)</th>
+            <th>@Html.DisplayNameFor(model => model.FutureOrder)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Images/@item.MealPicture"
+                         class="w3-round"
+                         height="150" width="100"
+                         asp-append-version="true" />
+                </td>
+                <td>@item.FoodOrder</td>
+                <td>@item.Category</td>
+                <td>@item.Price</td>
+                <td>@item.Rating</td>
+                <td>@item.FutureModification</td>
+                <td>@item.FutureOrder</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
