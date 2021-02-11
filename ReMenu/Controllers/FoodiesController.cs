@@ -260,9 +260,11 @@ namespace ReMenu.Controllers
             
 
             _repo.Save();
-            //return View(mealModel);
+
             return RedirectToAction("FoodDetails", new { mealId = meal.MealId });
 
+
+            //return View(mealModel);
             //return RedirectToAction("FoodDetails", mealModel);
             //return RedirectToAction("FoodDetails", new { id = meal.FoodieId });
         }
@@ -281,7 +283,6 @@ namespace ReMenu.Controllers
             vm.Rating = meal.Rating;
             vm.FavMeal = meal.FavMeal;
             vm.FoodOrder = meal.FoodOrder;
-           
 
             return View(vm);
         }
