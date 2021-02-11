@@ -16,11 +16,13 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.MealPicture)</th>
             <th>@Html.DisplayNameFor(model => model.FoodOrder)</th>
+            @*<th>@Html.DisplayNameFor(model => model.Restaurant.Name)</th>*@
             <th>@Html.DisplayNameFor(model => model.Category)</th>
             <th>@Html.DisplayNameFor(model => model.Price)</th>
             <th>@Html.DisplayNameFor(model => model.Rating)</th>
             <th>@Html.DisplayNameFor(model => model.FutureModification)</th>
             <th>@Html.DisplayNameFor(model => model.FutureOrder)</th>
+            <th>@Html.DisplayNameFor(model => model.FavMeal)</th>
         </tr>
     </thead>
     <tbody>
@@ -34,11 +36,13 @@
                          asp-append-version="true" />
                 </td>
                 <td>@item.FoodOrder</td>
+                @*<td>@item.Restaurant.Name</td>*@
                 <td>@item.Category</td>
                 <td>@item.Price</td>
                 <td>@item.Rating</td>
                 <td>@item.FutureModification</td>
                 <td>@item.FutureOrder</td>
+                <td>@item.FavMeal</td>
             </tr>
 
         }

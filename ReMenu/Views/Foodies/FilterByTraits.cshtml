@@ -8,14 +8,11 @@
 <h2>Meals By Category and Rank</h2>
 <p>Let's find what you're looking for!</p>
 
-@*<select asp-for="Category" class="form-control" asp-items="new SelectList(Categories)"> </select>*@
-
 <form asp-action="FilterByTraits">
     
 <div class="form-group">
     <label for="Category">Category</label>
     <select id="Category" name="Category">
-        @*<select asp-for="Category" name="Category">*@
         <option value="Appetizer">Appetizer</option>
         <option value="Breakfast">Breakfast</option>
         <option value="Fish">Fish</option>
@@ -30,15 +27,16 @@
     </select>
 </div>
 
-<label for="Rating">Rating</label>
-<select id="Rating" name="Rating">
-    <option value="5">5</option>
-    <option value="4">4</option>
-    <option value="3">3</option>
-    <option value="2">2</option>
-    <option value="1">1</option>
-</select>
-
+<div class="form-group">
+    <label for="Rating">Rating</label>
+    <select id="Rating" name="Rating">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+    </select>
+</div>
 <div class="form-group">
     <input type="submit" value="Submit" class="btn btn-primary" />
 </div>
@@ -61,11 +59,6 @@
     <tbody>
         @foreach (var item in Model)
         {
-            //item.Category = category;
-            //item.Rating = rating;
-            @*@if (item.Category == "Appetizer")
-                {
-                    if (item.Rating >= 3)*@
             {
                 <tr>
                     <td>
