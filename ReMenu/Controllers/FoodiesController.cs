@@ -33,7 +33,6 @@ namespace ReMenu.Controllers
             //var foodie = await _repo.Foodie.GetFoodieAsync(userId);
             //var foodie = _context.Foodies.Where(f => f.IdentityUserId == userId).SingleOrDefault();
             var foodie = _repo.Foodie.GetFoodie(userId);
-            //var meals = _repo.Meal.GetMealsAsync(foodie.FoodieId);
             if (foodie == null)
             {
                 return RedirectToAction("Create");
