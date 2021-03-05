@@ -18,6 +18,8 @@ namespace ReMenu.Models
 
         [ForeignKey("Restaurant")]
         public int RestaurantId { get; set; }
+
+        [Display(Name = "Restaurant Name")]
         public Restaurant Restaurant { get; set; }
 
     }
