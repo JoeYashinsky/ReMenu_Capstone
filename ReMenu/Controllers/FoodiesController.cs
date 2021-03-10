@@ -118,9 +118,6 @@ namespace ReMenu.Controllers
         }
 
 
-
-
-
         // GET: FoodiesController/CreateRestaurant
         public ActionResult CreateRestaurant()
         {
