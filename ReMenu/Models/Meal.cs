@@ -41,7 +41,7 @@ namespace ReMenu.Models
         [Display(Name = "Wish I Would Have...")]
         public string FutureOrder { get; set; }
 
-        [Display(Name = "Favorite This Meal?")]
+        [Display(Name = "Favorite Meal?")]
         public bool FavMeal { get; set; }
 
     }

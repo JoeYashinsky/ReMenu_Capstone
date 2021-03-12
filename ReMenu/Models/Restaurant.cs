@@ -24,7 +24,7 @@ namespace ReMenu.Models
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
-        [Display(Name = "Favorite This Restaurant?")]
+        [Display(Name = "Favorite Restaurant?")]
         public bool FavRestaurant { get; set; }
     }
 }
